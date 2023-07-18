@@ -1,16 +1,50 @@
-import React from 'react';
+import { InputType } from "../type/type";
 
-export default function Input() {
+
+export default function Input({ title, formName, type, register, errors }: InputType) {
     return (
-        <form className='fixed bottom-0 w-full shadow-sm'>
-            <input type="text" placeholder="Type a comment.." className='border h-12 pl-4 w-full' />
-            <button className='absolute right-3 top-3 bg-[#4286f4]  text-white  h-7 px-2 rounded-full '>
-                <svg className='w-7 h-7'
-                    fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                </svg>
-            </button>
-        </form>
+        <>
+            {formName === "name" ?
+                <>
+                    <label className="sr-only" htmlFor={title}>{title}</label>
+                    <input {...register(formName, {
+                        required: "필수 입력 항목 입니다"
+                    })} id={title} className="h-12 rounded-md  border focus:outline-none pl-3 text-[#4286f4] " placeholder={title} type={type} />
+                    <span className="text-red-500 text-xs block">{errors.name?.message}</span>
+
+                </> : null}
+            {formName === "email" ?
+                <>
+                    <label className="sr-only" htmlFor={title}>{title}</label>
+                    <input {...register(formName, {
+                        required: "필수 입력 항목 입니다",
+                        validate: {
+                            email: (value) => (value.includes("@") || "이메일 형식으로 작성하세요")
+                        }
+                    })} id={title} className="h-12 rounded-md  border focus:outline-none pl-3 text-[#4286f4] " placeholder={title} type={type} />
+                    <span className="text-red-500 text-xs block">{errors.email?.message}</span></>
+                : null}
+
+            {formName === "password" ?
+                <>
+                    <label className="sr-only" htmlFor={title}>{title}</label>
+                    <input {...register(formName, {
+                        required: "필수 입력 항목 입니다",
+                        minLength: {
+                            value: 8,
+                            message: "8자리 이상 입력 하세요"
+                        }
+
+                    })} id={title} className="h-12 rounded-md  border focus:outline-none pl-3 text-[#4286f4] " placeholder={title} type={type} />
+                    <span className="text-red-500 text-xs block">{errors.password?.message}</span>
+                </>
+                :
+                null
+
+            }
+
+
+        </>
     );
 }
 
