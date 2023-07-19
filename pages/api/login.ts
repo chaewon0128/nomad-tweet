@@ -4,6 +4,14 @@ import db from "../../lib/db";
 import { sessionOption } from "../../lib/sessionOption";
 import { decrypt } from '../../lib/password';
 
+declare module "iron-session" {
+    interface IronSessionData {
+        user?: {
+            id: number
+        }
+    }
+}
+
 async function handler(
     req: NextApiRequest,
     res: NextApiResponse<ResponseType>
