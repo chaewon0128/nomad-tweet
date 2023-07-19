@@ -18,8 +18,6 @@ export interface FormValue {
 
 export interface BtnType {
     title: string,
-    btnColor?: string,
-    textColor?: string,
 }
 
 export interface PreviewType {
@@ -27,3 +25,10 @@ export interface PreviewType {
     avatarPreview: string,
 
 }
+
+export interface XButtonType {
+    page: string,
+    position: string,
+}
+
+export type MutationReturnType = [(data: any) => void, { loading: boolean, data: undefined | any, error: undefined | any }]

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookMarkIcon, CommentIcon, RetweetIcon } from '../icons/icons';
+import { BookMarkIcon, CommentIcon, RetweetIcon } from '../../icons/icons';
 
 interface IconType {
     type: "comment" | "retweet" | "bookmark"

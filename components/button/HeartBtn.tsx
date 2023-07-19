@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { HeartFullIcon, HeartLineIcon } from '../icons/icons';
+import { HeartFullIcon, HeartLineIcon } from '../../icons/icons';
 import { useState } from 'react';
 
 const fetcher = () => {
