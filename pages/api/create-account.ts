@@ -1,11 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../lib/db";
+import { encrypt } from "../../lib/password";
 
 export default async function handler(req: NextApiRequest,
     res: NextApiResponse<ResponseType>) {
 
     if (req.method === "POST") {
         const { name, email, password, avatar } = req.body;
+        const encryptPassword = encrypt(password)
+
         const user = await db.user.findUnique({
             where: {
                 email,
@@ -17,14 +20,14 @@ export default async function handler(req: NextApiRequest,
             data: {
                 name,
                 email,
-                password,
+                password: encryptPassword,
 
             }
         })
         return res.status(201).end();
 
-        console.log(req.body)
-    }
 
+    }
+    return res.status(401).end()
 }
 
