@@ -14,17 +14,23 @@ export default async function handler(req: NextApiRequest,
                 email,
             }
         })
-        if (user) return res.status(200).end();
+        if (user) {
+            return res.status(400).json({
+                message: "이미 존재하는 아이디 입니다"
+            })
+        } else {
+            await db.user.create({
+                data: {
+                    name,
+                    email,
+                    password: encryptPassword,
 
-        await db.user.create({
-            data: {
-                name,
-                email,
-                password: encryptPassword,
-
-            }
-        })
-        return res.status(201).end();
+                }
+            })
+            return res.status(201).json({
+                ok: true,
+            })
+        }
 
 
     }
