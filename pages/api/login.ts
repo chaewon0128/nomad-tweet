@@ -29,13 +29,17 @@ async function handler(
                 const decryptPassword = decrypt(encryptedPassword)
 
                 if (decryptPassword === password) {
-                    console.log("성공")
                     req.session.user = {
                         id: user?.id
                     }
                     await req.session.save()
-                    res.status(200).end();
+
+                    res.json({
+                        ok: true
+                    })
                 }
+            } else if (!user) {
+                res.json({ ok: false })
             }
         }
         res.status(404).end()
