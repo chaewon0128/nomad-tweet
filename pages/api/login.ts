@@ -24,7 +24,12 @@ async function handler(
                     email,
                 }
             });
-            if (user) {
+            if (!user) {
+                res.json({
+                    status: 404,
+                    message: "존재하지 않는 아이디 입니다"
+                })
+            } else {
                 const encryptedPassword = decodeURIComponent(user.password);
                 const decryptPassword = decrypt(encryptedPassword)
 
@@ -33,19 +38,22 @@ async function handler(
                         id: user?.id
                     }
                     await req.session.save()
-
                     res.json({
-                        ok: true
+                        status: 200
+                    })
+                } else {
+                    res.json({
+                        status: 401,
+                        message: "비밀번호를 확인 하세요"
                     })
                 }
-            } else if (!user) {
-                res.json({ ok: false })
             }
         }
-        res.status(404).end()
     }
 
-
 }
+
+
+
 
 export default withIronSessionApiRoute(handler, sessionOption)
