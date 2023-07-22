@@ -4,7 +4,7 @@ import TweetInput from '../components/TweetInput';
 import Title from '../components/Title';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import { TweetMsgType, TweetType, TweetUser, TweetsType } from '../type/type';
+import { TweetType, TweetsType } from '../type/type';
 
 
 
@@ -12,7 +12,8 @@ import { TweetMsgType, TweetType, TweetUser, TweetsType } from '../type/type';
 export default function Home() {
   const router = useRouter()
   const { data, error } = useSWR("/api/profile")
-  const { data: tweetMsg } = useSWR<TweetsType>("/api/post")
+  const { data: tweetMsg } = useSWR<TweetsType>("/api/post", { refreshInterval: 500 })
+
 
   useEffect(() => {
     if (error) {
