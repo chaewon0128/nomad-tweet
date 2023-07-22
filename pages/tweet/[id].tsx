@@ -6,12 +6,22 @@ import XButton from "../../components/button/XButton";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import Answer from "../../components/Answer";
+import { useEffect } from "react";
+import { AnswerType } from "../../type/type";
 
 
 
 export default function Tweet() {
     const router = useRouter();
+    const { data: answerData } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
+    const { error } = useSWR("/api/profile")
     const { data } = useSWR(router?.query.id ? `/api/post/${router.query.id}` : null)
+    useEffect(() => {
+        if (error) {
+            router.replace("/log-in")
+        }
+
+    }, [error])
 
     return (
         <div className="w-full bg-gradient-to-br min-h-screen flex justify-center items-center">
@@ -28,7 +38,9 @@ export default function Tweet() {
                     <div className="flex flex-col items-center justify-center cursor-pointer"><IconBtn type="retweet" />Retweet</div>
                 </div>
                 <Textarea />
-                <Answer />
+                {answerData?.tweets.map((tweet: AnswerType) => (
+                    <Answer name={tweet?.user.name} email={tweet?.user.email} content={tweet?.answer} date={tweet?.createdAt} />
+                ))}
                 <XButton page="back" position="top-5" />
             </div>
 

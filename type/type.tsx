@@ -83,3 +83,24 @@ export interface TweetType {
     user: TweetUser
 
 }
+
+
+export interface CommentType {
+    name: string,
+    email: string,
+    date: string,
+    content: string,
+}
+
+export interface AnswerType {
+    answer: string,
+    createdAt: string,
+    user: AnswerUser,
+
+
+}
+
+export interface AnswerUser {
+    email: string,
+    name: string
+}
