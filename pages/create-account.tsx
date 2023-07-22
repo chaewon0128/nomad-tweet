@@ -6,32 +6,31 @@ import MainBtn from "../components/button/MainBtn";
 import Preview from "../components/Preview";
 import XButton from "../components/button/XButton";
 import useMutation from "../lib/useMutation";
-import { useRouter } from "next/router";
+import Modal from "../components/modal";
 
 
 
 export default function Create() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValue>()
-    const [mutation, { loading, error, data }] = useMutation("/api/create-account")
+    const [mutation, { loading, data }] = useMutation("/api/create-account")
     const [modal, setModal] = useState(false)
-    const router = useRouter()
     const [avatarPreview, setAvatarPreview] = useState("")
     const avatar = watch("avatar")
     const onSignUp = async (validForm: FormValue) => {
+        if (loading) return;
         mutation(validForm)
-        console.log(data)
 
     }
-    const onLoginPage = () => { router.push("/log-in") }
+
     useEffect(() => {
         if (avatar && avatar.length > 0) {
             setAvatarPreview(URL.createObjectURL(avatar[0]))
         }
-        if (data?.ok) {
+        if (data?.status === 201) {
             setModal(true)
         }
 
-    }, [avatar, modal])
+    }, [avatar, data])
 
 
     return (
@@ -48,10 +47,7 @@ export default function Create() {
                 </form>
                 <XButton page="/log-in" position="top-0" />
                 {modal ?
-                    <div className="absolute w-[350px] text-center py-10 rounded-3xl top-[25%] bg-white border">
-                        <p>Welcome to tweety!</p>
-                        <button className="bg-[#4286f4] inline-block w-20 rounded-md mt-5 py-1 text-white" onClick={onLoginPage}>확인</button>
-                    </div> : null}
+                    <Modal movePage="/log-in" message="Welcome to tweety!" setModal={setModal} /> : null}
             </div >
         </div >
     );

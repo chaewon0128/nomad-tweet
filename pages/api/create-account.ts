@@ -27,8 +27,8 @@ export default async function handler(req: NextApiRequest,
 
                 }
             })
-            return res.status(201).json({
-                ok: true,
+            return res.json({
+                status: 201,
             })
         }
 

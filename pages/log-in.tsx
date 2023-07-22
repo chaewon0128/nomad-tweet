@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Input from "../components/Input";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { FormValue } from "../type/type";
 import MainBtn from "../components/button/MainBtn";
 import useMutation from "../lib/useMutation";
@@ -14,7 +14,7 @@ import Modal from "../components/modal";
 export default function LogIn() {
     const { register, handleSubmit, formState: { errors } } = useForm<FormValue>()
     const [modal, setModal] = useState(false)
-    const [mutation, { loading, data, error }] = useMutation("/api/login")
+    const [mutation, { loading, data }] = useMutation("/api/login")
     const router = useRouter()
     const onCreatePage = () => {
         router.push("/create-account")
@@ -22,14 +22,13 @@ export default function LogIn() {
     }
     const onLogIn = (validForm: FormValue) => {
         mutation(validForm)
-        if (data?.status === 200) setModal(true)
-
-
     }
 
     useEffect(() => {
-
+        if (data?.status === 200) setModal(true)
     }, [data])
+
+
 
     return (
         <div className=' flex flex-col space-y-5 items-center justify-center pt-10 min-h-screen bg-gradient-to-b from-[#fffc00] to-[#ffffff]'>
