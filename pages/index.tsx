@@ -1,23 +1,19 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import TweetMsg from '../components/TweetMessage';
 import TweetInput from '../components/TweetInput';
 import Title from '../components/Title';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import useMutation from '../lib/useMutation';
+import { TweetMsgType, TweetType, TweetUser, TweetsType } from '../type/type';
 
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
+
 export default function Home() {
   const router = useRouter()
-  const { data, error } = useSWR("/api/profile", fetcher)
-  const { data: tweet } = useSWR("/api/post", fetcher)
-  const [mutation, { data: posting, loading, error: postingError }] = useMutation("/api/post")
+  const { data, error } = useSWR("/api/profile")
+  const { data: tweetMsg } = useSWR<TweetsType>("/api/post")
 
-  const onTweet = () => {
-    mutation(data)
-
-  }
   useEffect(() => {
     if (error) {
       router.replace("/log-in")
@@ -25,13 +21,21 @@ export default function Home() {
 
   }, [error])
 
-
   return (
     <div className='pt-10 bg-gradient-to-br'>
       <Title nickname={data?.profile.name} />
       <div className='bg-white min-h-screen rounded-t-3xl py-3 px-7'>
-        {[1, 1, 1, 1, 1, 1, 1].map((_, i) => (
-          <TweetMsg index={i} key={i} profile={data?.profile} />
+        {tweetMsg?.tweets?.toReversed().map((tweet: TweetType) => (
+          <TweetMsg
+            key={tweet.id}
+            index={tweet.id}
+            profile={data?.profile}
+            date={tweet.createdAt}
+            liked={tweet.liked}
+            name={tweet.user.name}
+            email={tweet.user.email}
+            content={tweet.content}
+          />
         ))}
       </div>
       <TweetInput />

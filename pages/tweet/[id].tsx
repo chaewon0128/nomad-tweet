@@ -1,24 +1,26 @@
-import { useRouter } from "next/router";
-import IconBtn from "../../components/IconBtn";
+import IconBtn from "../../components/button/IconBtn";
 import Profile from "../../components/Profile";
 import Textarea from "../../components/Textarea";
-import HeartBtn from "../../components/heartBtn";
-import { XmarkIcon } from "../../icons/icons";
+import HeartBtn from "../../components/button/HeartBtn";
+import XButton from "../../components/button/XButton";
+import useSWR from "swr";
+import { useRouter } from "next/router";
+import Answer from "../../components/Answer";
+
 
 
 export default function Tweet() {
-    const router = useRouter()
-    const onClose = () => {
-        router.back()
-    }
+    const router = useRouter();
+    const { data } = useSWR(router?.query.id ? `/api/post/${router.query.id}` : null)
+
     return (
-        <div className="w-full bg-gradient-to-r from-[#373B44] to-[#4286f4] min-h-screen flex justify-center items-center">
-            <div className="bg-white w-[80%] rounded-3xl py-14 px-8 relative">
-                <Profile nicname="nico" id="nicolas" />
+        <div className="w-full bg-gradient-to-br min-h-screen flex justify-center items-center">
+            <div className="bg-white w-[80%] shadow-2xl mt-14 rounded-3xl py-14 px-8 relative">
+                <Profile name={data?.post.user.name} email={data?.post.user.email} />
                 <p className="ml-2 mt-5">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente odio autem minus ab voluptatem, sint rerum reprehenderit sit fuga earum officiis iure tenetur dignissimos? Esse aliquam itaque eos ipsa vel.
+                    {data?.post.content}
                 </p>
-                <div className="text-end mt-4">2023년 7월 17일</div>
+                <div className="text-end mt-4 text-sm">{(data?.post.createdAt)?.slice(0, 10)}</div>
                 <div className="mt-5 py-3 border-t border-b flex justify-around items-center">
                     <div className="flex flex-col items-center justify-center cursor-pointer"><HeartBtn />likes</div>
                     <div className="flex flex-col items-center justify-center cursor-pointer"><IconBtn type="comment" />comment</div>
@@ -26,8 +28,10 @@ export default function Tweet() {
                     <div className="flex flex-col items-center justify-center cursor-pointer"><IconBtn type="retweet" />Retweet</div>
                 </div>
                 <Textarea />
-                <button onClick={onClose} className="w-8 h-8 absolute top-5 right-5"><XmarkIcon size="8" /></button>
+                <Answer />
+                <XButton page="back" position="top-5" />
             </div>
+
         </div>
     );
 }
