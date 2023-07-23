@@ -3,60 +3,55 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
   provider = "sqlite"
   url      = "file:./dev.db"
- referentialIntegrity = "prisma" 
-
-
 }
 
-
 model User {
-id Int  @id @default(autoincrement())
-name String
-email String @unique
-password String
-createdAt DateTime  @default(now())
-updatedAt DateTime @updatedAt
-avatarUrl String?  
-tweets Tweet[]
-answer Answer[]
-favorite Favorite[]
+  id        Int        @id @default(autoincrement())
+  name      String
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  avatarUrl String?
+  tweets    Tweet[]
+  answer    Answer[]
+  favorite  Favorite[]
 }
 
 model Tweet {
-id Int  @id @default(autoincrement())
-liked Boolean
-content String 
-createdAt  DateTime   @default(now())
-updatedAt DateTime @updatedAt
-user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-userId Int   
-answer Answer[]
-favorite Favorite[]
+  id        Int        @id @default(autoincrement())
+  liked     Boolean
+  content   String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  answer    Answer[]
+  favorite  Favorite[]
 }
 
 model Answer {
-id Int  @id @default(autoincrement())
-createdAt  DateTime   @default(now())
-updatedAt DateTime @updatedAt
-answer String 
-user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-userId Int   
-tweet Tweet @relation(fields: [tweetid], references: [id], onDelete: Cascade)
-tweetid Int 
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  answer    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  tweet     Tweet    @relation(fields: [tweetid], references: [id], onDelete: Cascade)
+  tweetid   Int
 }
 
 model Favorite {
-id Int  @id @default(autoincrement())
-createdAt  DateTime   @default(now())
-updatedAt DateTime @updatedAt
-user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-userId Int   
-tweet Tweet @relation(fields: [tweetid], references: [id], onDelete: Cascade)
-tweetid Int 
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  tweet     Tweet    @relation(fields: [tweetid], references: [id], onDelete: Cascade)
+  tweetid   Int
 }

@@ -20,7 +20,8 @@ async function handler(req: NextApiRequest,
                         email: true
                     }
                 },
-            }
+            },
+            take: 32000,
         })
         res.json({
             ok: true,
