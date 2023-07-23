@@ -9,7 +9,8 @@ export default async function handler(req: NextApiRequest,
         const { name, email, password, avatar } = req.body;
         const encryptPassword = encrypt(password)
 
-        const user = await db.user.findUnique({
+
+        const user = await db.user.findFirst({
             where: {
                 email,
             }
