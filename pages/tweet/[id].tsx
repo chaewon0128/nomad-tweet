@@ -41,7 +41,7 @@ export default function Tweet() {
                 </div>
                 <Textarea />
                 {answerData?.tweets.map((tweet: AnswerType) => (
-                    <Answer name={tweet?.user.name} email={tweet?.user.email} content={tweet?.answer} date={tweet?.createdAt} />
+                    <Answer key={tweet?.id} name={tweet?.user.name} email={tweet?.user.email} content={tweet?.answer} date={tweet?.createdAt} />
                 ))}
                 <XButton page="back" position="top-5" />
             </div>

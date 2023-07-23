@@ -84,6 +84,7 @@ export interface AnswerType {
     answer: string,
     createdAt: string,
     user: AnswerUser,
+    id: number,
 }
 
 export interface SessionOptionType {
