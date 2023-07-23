@@ -3,14 +3,14 @@
 
 generator client {
   provider = "prisma-client-js"
-previewFeatures = ["referentialIntegrity"]
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
  referentialIntegrity = "prisma" 
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+
 
 }
 
@@ -31,7 +31,7 @@ favorite Favorite[]
 model Tweet {
 id Int  @id @default(autoincrement())
 liked Boolean
-content String @db.MediumText
+content String 
 createdAt  DateTime   @default(now())
 updatedAt DateTime @updatedAt
 user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -44,7 +44,7 @@ model Answer {
 id Int  @id @default(autoincrement())
 createdAt  DateTime   @default(now())
 updatedAt DateTime @updatedAt
-answer String @db.MediumText
+answer String 
 user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
 userId Int   
 tweet Tweet @relation(fields: [tweetid], references: [id], onDelete: Cascade)
