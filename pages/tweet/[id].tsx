@@ -13,7 +13,7 @@ import { AnswerType } from "../../type/type";
 
 export default function Tweet() {
     const router = useRouter();
-    const { data: answerData } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
+    const { data: answerData } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null, { refreshInterval: 500 })
     const { error } = useSWR("/api/profile")
     const { data } = useSWR(router?.query.id ? `/api/post/${router.query.id}` : null)
     useEffect(() => {
@@ -22,6 +22,8 @@ export default function Tweet() {
         }
 
     }, [error])
+
+
 
     return (
         <div className="w-full bg-gradient-to-br min-h-screen flex justify-center items-center">
@@ -32,7 +34,7 @@ export default function Tweet() {
                 </p>
                 <div className="text-end mt-4 text-sm">{(data?.post.createdAt)?.slice(0, 10)}</div>
                 <div className="mt-5 py-3 border-t border-b flex justify-around items-center">
-                    <div className="flex flex-col items-center justify-center cursor-pointer"><HeartBtn />likes</div>
+                    <div className="flex flex-col items-center justify-center cursor-pointer"><HeartBtn liked={data?.isLiked} />likes</div>
                     <div className="flex flex-col items-center justify-center cursor-pointer"><IconBtn type="comment" />comment</div>
                     <div className="flex flex-col items-center justify-center cursor-pointer"><IconBtn type="bookmark" />Mark</div>
                     <div className="flex flex-col items-center justify-center cursor-pointer"><IconBtn type="retweet" />Retweet</div>
