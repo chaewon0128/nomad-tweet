@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
 
 export interface InputType {
@@ -83,11 +84,31 @@ export interface AnswerType {
     answer: string,
     createdAt: string,
     user: AnswerUser,
+}
 
-
+export interface SessionOptionType {
+    cookieName: string,
+    password: string,
 }
 
 export interface AnswerUser {
     email: string,
     name: string
+}
+
+
+export interface ModalType {
+    message: string,
+    movePage: string,
+    setModal: Dispatch<SetStateAction<boolean>>
+}
+
+export interface TweetForm {
+    Tweet: string,
+}
+
+export type likedType = { liked: boolean }
+
+export interface IconType {
+    type: "comment" | "retweet" | "bookmark"
 }

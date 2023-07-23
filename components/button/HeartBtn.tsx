@@ -1,10 +1,10 @@
 import useSWR from 'swr';
 import { HeartFullIcon, HeartLineIcon } from '../../icons/icons';
-
 import { useRouter } from 'next/router';
 import useMutation from '../../lib/useMutation';
+import { likedType } from '../../type/type';
 
-type likedType = { liked: boolean }
+
 
 export default function HeartBtn({ liked }: likedType) {
     const router = useRouter();

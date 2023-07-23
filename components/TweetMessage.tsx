@@ -1,5 +1,4 @@
 import Link from 'next/link';
-
 import Profile from './Profile';
 import { TweetMsgType } from '../type/type';
 

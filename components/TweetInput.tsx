@@ -1,9 +1,8 @@
 import { useForm } from "react-hook-form";
 import useMutation from "../lib/useMutation";
+import { TweetForm } from "../type/type";
 
-interface TweetForm {
-    Tweet: string,
-}
+
 export default function TweetInput() {
     const { register, handleSubmit, reset } = useForm<TweetForm>()
     const [mutation, { loading }] = useMutation("/api/post")

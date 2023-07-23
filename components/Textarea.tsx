@@ -2,9 +2,6 @@ import { useForm } from 'react-hook-form';
 import useMutation from '../lib/useMutation';
 import { useRouter } from 'next/router';
 
-interface AnswerForm {
-    answer: string
-}
 
 export default function Textarea() {
     const router = useRouter();

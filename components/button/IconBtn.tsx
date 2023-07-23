@@ -1,9 +1,7 @@
-import React from 'react';
 import { BookMarkIcon, CommentIcon, RetweetIcon } from '../../icons/icons';
+import { IconType } from '../../type/type';
 
-interface IconType {
-    type: "comment" | "retweet" | "bookmark"
-}
+
 export default function IconBtn({ type }: IconType) {
     return (
         <button className='hover:text-blue-600 hover:transition-all'>

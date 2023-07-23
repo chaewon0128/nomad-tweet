@@ -1,11 +1,7 @@
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction } from "react";
+import { ModalType } from "../type/type";
 
-interface ModalType {
-    message: string,
-    movePage: string,
-    setModal: Dispatch<SetStateAction<boolean>>
-}
+
 
 export default function Modal({ message, movePage, setModal }: ModalType) {
     const router = useRouter()
