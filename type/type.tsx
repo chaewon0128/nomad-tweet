@@ -45,19 +45,6 @@ export interface ProfileType {
     avatarUrl?: string,
 }
 
-
-// export interface TweetType {
-//     index: number,
-//     content: string,
-//     createdAt: string,
-//     id: number,
-//     liked: boolean,
-//     user: TweetUser
-//     date: string,
-//     name: string,
-//     email: string
-//     profile: ProfileType
-// }
 export interface TweetUser {
     name: string,
     email: string

@@ -29,9 +29,22 @@ async function handler(req: NextApiRequest,
             }
         })
 
+        const isLiked = Boolean(
+            await db.favorite.findFirst({
+                where: {
+                    tweetid: post?.id,
+                    userId: user?.id
+                },
+                select: {
+                    id: true
+                }
+            })
+        )
+
         res.json({
             ok: true,
-            post
+            post,
+            isLiked
         })
 
     }
