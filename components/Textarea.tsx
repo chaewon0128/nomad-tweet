@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import useMutation from '../lib/useMutation';
 import { useRouter } from 'next/router';
@@ -9,7 +8,7 @@ interface AnswerForm {
 
 export default function Textarea() {
     const router = useRouter();
-    const [mutation, { loading, data }] = useMutation(`/api/post/${router.query.id}/answer`)
+    const [mutation, { loading }] = useMutation(`/api/post/${router.query.id}/answer`)
     const { register, handleSubmit, reset } = useForm()
 
     const onAnswer = (answerForm: any) => {
