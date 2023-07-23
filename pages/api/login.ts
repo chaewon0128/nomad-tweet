@@ -21,6 +21,7 @@ async function handler(
             const { email, password } = req.body;
             const user = await db.user.findUnique({
                 where: {
+
                     email,
                 }
             });
