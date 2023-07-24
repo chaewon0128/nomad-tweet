@@ -26,7 +26,7 @@ export default function Home() {
     <div className='pt-10 bg-gradient-to-br'>
       <Title nickname={data?.profile?.name} />
       <div className='bg-white min-h-screen rounded-t-3xl py-3 px-7'>
-        {tweetMsg?.tweets?.toReversed().map((tweet: TweetType) => (
+        {tweetMsg?.tweets?.reverse().map((tweet: TweetType) => (
           <TweetMsg
             key={tweet.id}
             index={tweet.id}
