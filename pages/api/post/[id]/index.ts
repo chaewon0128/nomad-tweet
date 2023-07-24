@@ -16,7 +16,7 @@ async function handler(req: NextApiRequest,
         } = req;
         const post = await db.tweet.findUnique({
             where: {
-                id: +id.toString(),
+                id: Number(id),
             },
             include: {
                 user: {
