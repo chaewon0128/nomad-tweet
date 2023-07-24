@@ -20,9 +20,12 @@ async function handler(
             const {
                 session: { user }
             } = req;
+            if (!user?.id) {
+                return res.status(401).end();
+            }
             const profile = await db.user.findUnique({
                 where: {
-                    id: user?.id
+                    id: user.id
                 }
             });
             res.json({ ok: true, profile })
