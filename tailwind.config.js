@@ -18,6 +18,7 @@ module.exports = {
     extend: {}
   },
   plugins: [
-    require('tailwindcss-spinner')({ className: 'spinner', themeKey: 'spinner' })
+    require('tailwindcss-spinner')({ className: 'spinner', themeKey: 'spinner' }),
+    require('tailwind-animatecss')
   ]
 };

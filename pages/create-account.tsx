@@ -35,7 +35,7 @@ export default function Create() {
 
     return (
         <div className='pt-20 min-h-screen bg-gradient-to-br'>
-            < div className='bg-white w-full rounded-t-3xl flex flex-col space-y-12 items-center justify-center h-[683px] relative' >
+            < div className='bg-white w-full  animatecss animatecss-fadeInUp rounded-t-3xl flex flex-col space-y-12 items-center justify-center h-[683px] relative' >
                 <h1 className="font-extrabold text-5xl text-[#4286f4]">Create an account</h1>
                 <form onSubmit={handleSubmit(onSignUp)} className="w-[90%] flex flex-col space-y-3">
                     <Preview register={register} avatarPreview={avatarPreview} />
@@ -45,7 +45,7 @@ export default function Create() {
                     <MainBtn title="Sign Up" loading={loading} />
                     <span className="text-sm text-red-500">{data?.message}</span>
                 </form>
-                <XButton page="/log-in" position="top-0" />
+                <XButton page="/log-in" position="top-[-20px]" />
                 {modal ?
                     <Modal movePage="/log-in" message="Welcome to tweety!" setModal={setModal} /> : null}
             </div >

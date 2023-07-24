@@ -5,7 +5,7 @@ export default function MainBtn({ title, loading }: BtnType) {
     return (
         <>
             <button className="text-white bg-[#4286f4] h-12 rounded-full
-            font-semibold transition ease-in-out  hover:bg-white hover:border hover:border-[#4286f4] hover:text-[#373D49] hover:transition-all hover:duration-500 duration-500">{loading ? "loading" : title}</button>
+            font-semibold transition ease-in-out  hover:bg-blue-600">{loading ? "loading" : title}</button>
         </>
     );
 }

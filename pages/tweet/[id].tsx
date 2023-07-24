@@ -30,7 +30,7 @@ export default function Tweet() {
 
             {isValidating ? <div className="spinner"></div> :
 
-                <div className="bg-white w-[80%] shadow-2xl mt-14 rounded-3xl py-14 px-8 relative">
+                <div className="bg-white w-[80%] shadow-2xl mt-14 rounded-3xl py-14 px-8 relative animatecss animatecss-bounceIn">
                     <Profile name={data?.post.user.name} email={data?.post.user.email} />
                     <p className="ml-2 mt-5">
                         {data?.post.content}

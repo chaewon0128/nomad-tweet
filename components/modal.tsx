@@ -11,9 +11,9 @@ export default function Modal({ message, movePage, setModal }: ModalType) {
     }
 
     return (
-        <div className="absolute w-[350px] shadow-md text-center py-10 rounded-3xl top-[25%] bg-white border">
+        <div className="absolute w-[350px] shadow-2xl text-center py-10 rounded-3xl top-[35%] bg-white border">
             <p>{message}</p>
-            <button className="bg-[#4286f4] inline-block w-20 rounded-md mt-5 py-1 text-white" onClick={onMovePage}>확인</button>
+            <button className="bg-[#4286f4] inline-block w-20 shadow-md rounded-md mt-5 py-1 text-white" onClick={onMovePage}>확인</button>
         </div>
     );
 }

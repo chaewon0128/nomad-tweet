@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import TweetMsg from '../components/TweetMessage';
 import TweetInput from '../components/TweetInput';
 import Title from '../components/Title';
@@ -22,12 +22,15 @@ export default function Home() {
 
   }, [error])
 
+
+
+
   return (
     <div className='pt-10 bg-gradient-to-br'>
       <Title nickname={data?.profile?.name} isLoading={isValidating} />
 
-      <div className='bg-white min-h-screen rounded-t-3xl py-3 px-7'>
-        {tweetMsg?.tweets?.reverse().map((tweet: TweetType) => (
+      <div className='bg-white min-h-screen rounded-t-3xl py-3 px-7 animatecss animatecss-fadeInUp'>
+        {tweetMsg?.tweets.map((tweet: TweetType) => (
           <TweetMsg
             key={tweet.id}
             index={tweet.id}
