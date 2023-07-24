@@ -10,11 +10,11 @@ export default async function handler(req: NextApiRequest,
         const encryptPassword = encrypt(password)
 
 
-        const user = await db.user.findFirst({
+        const user = await db.user.findUnique({
             where: {
                 email,
             }
-        })
+        });
         if (!user) {
             await db.user.create({
                 data: {
