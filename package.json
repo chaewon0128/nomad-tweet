@@ -32,5 +32,8 @@
   },
   "license": "ISC",
   "keywords": [],
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "tailwindcss-spinner": "^1.2.0"
+  }
 }

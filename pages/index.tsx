@@ -11,7 +11,7 @@ import { TweetType, TweetsType } from '../type/type';
 
 export default function Home() {
   const router = useRouter()
-  const { data, error } = useSWR("/api/profile")
+  const { data, error, isValidating } = useSWR("/api/profile")
   const { data: tweetMsg } = useSWR<TweetsType>("/api/post", { refreshInterval: 500 })
 
 
@@ -24,7 +24,8 @@ export default function Home() {
 
   return (
     <div className='pt-10 bg-gradient-to-br'>
-      <Title nickname={data?.profile?.name} />
+      <Title nickname={data?.profile?.name} isLoading={isValidating} />
+
       <div className='bg-white min-h-screen rounded-t-3xl py-3 px-7'>
         {tweetMsg?.tweets?.reverse().map((tweet: TweetType) => (
           <TweetMsg
