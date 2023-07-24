@@ -20,7 +20,7 @@ async function handler(
             const {
                 session: { user }
             } = req;
-            const profile = await db.user.findUnique({
+            const profile = await db.user.findFirst({
                 where: {
                     id: user?.id
                 }
