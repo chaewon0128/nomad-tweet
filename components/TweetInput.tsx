@@ -10,9 +10,10 @@ export default function TweetInput() {
         if (loading) return;
         mutation(tweetText)
         reset();
+
     }
     return (
-        <form onSubmit={handleSubmit(onTweet)} className='fixed bottom-5 w-full flex '>
+        <form onSubmit={handleSubmit(onTweet)} className='fixed bottom-5 min-w-[500px] flex '>
             <input {...register("Tweet")} type="text" placeholder="Type a comment.." className='border  mx-auto w-[90%] rounded-full h-12 pl-4 pr-16 ' />
             <button className='absolute right-10 top-3 bg-[#4286f4]  text-white  h-7 px-2 rounded-full '>
                 <svg className='w-7 h-7'
