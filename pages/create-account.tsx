@@ -6,19 +6,28 @@ import MainBtn from "../components/button/MainBtn";
 import Preview from "../components/Preview";
 import XButton from "../components/button/XButton";
 import useMutation from "../lib/useMutation";
-import Modal from "../components/modal";
+import { Toaster, toast } from "react-hot-toast";
+import { useRouter } from "next/router";
 
 
 
 export default function Create() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValue>()
     const [mutation, { loading, data }] = useMutation("/api/create-account")
-    const [modal, setModal] = useState(false)
     const [avatarPreview, setAvatarPreview] = useState("")
+    const router = useRouter()
     const avatar = watch("avatar")
     const onSignUp = async (validForm: FormValue) => {
         if (loading) return;
         mutation(validForm)
+
+        if (data?.status === 201) {
+            toast.success(data?.message)
+            router.push("/log-in")
+        }
+        if (data?.status === 400) {
+            toast.error(data?.message)
+        }
 
     }
 
@@ -26,11 +35,9 @@ export default function Create() {
         if (avatar && avatar.length > 0) {
             setAvatarPreview(URL.createObjectURL(avatar[0]))
         }
-        if (data?.status === 201) {
-            setModal(true)
-        }
 
-    }, [avatar, data])
+
+    }, [avatar])
 
 
     return (
@@ -43,11 +50,9 @@ export default function Create() {
                     <Input title="email" type="email" register={register} formName="email" errors={errors} />
                     <Input title="password" type="password" register={register} formName="password" errors={errors} />
                     <MainBtn title="Sign Up" loading={loading} />
-                    <span className="text-sm text-red-500">{data?.message}</span>
                 </form>
                 <XButton page="/log-in" position="top-[-20px]" />
-                {modal ?
-                    <Modal movePage="/log-in" message="Welcome to tweety!" setModal={setModal} /> : null}
+                <div><Toaster /></div>
             </div >
         </div >
     );

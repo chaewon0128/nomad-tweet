@@ -7,13 +7,11 @@ import useMutation from "../lib/useMutation";
 import Image from "next/image";
 import twity from '../image/twity.png'
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import Modal from "../components/modal";
+import { Toaster, toast } from "react-hot-toast";
 
 
 export default function LogIn() {
     const { register, handleSubmit, formState: { errors } } = useForm<FormValue>()
-    const [modal, setModal] = useState(false)
     const [mutation, { loading, data }] = useMutation("/api/login")
     const router = useRouter()
     const onCreatePage = () => {
@@ -22,11 +20,24 @@ export default function LogIn() {
     }
     const onLogIn = (validForm: FormValue) => {
         mutation(validForm)
+
+        if (data?.status === 200) {
+            toast.success('Welcome to Tweety!')
+            setTimeout(() => {
+                router.push("/")
+            }, 1000)
+        }
+        if (data?.status === 404) {
+            toast.error(data?.message)
+
+        }
+        if (data?.status === 401) {
+            toast.error(data?.message)
+
+        }
     }
 
-    useEffect(() => {
-        if (data?.status === 200) setModal(true)
-    }, [data])
+
 
 
 
@@ -39,10 +50,8 @@ export default function LogIn() {
                 <Input title="password" type="password" register={register} formName="password" errors={errors} />
                 <MainBtn title="Log in" loading={loading} />
             </form>
-            <span className="text-sm text-red-500">{data?.message}</span>
             <button onClick={onCreatePage} className="text-[#4286f4] hover:underline">Create Account</button>
-            {modal ?
-                <Modal movePage="/" message="Welcome to tweety!" setModal={setModal} /> : null}
+            <div><Toaster /></div>
         </div>
     );
 }

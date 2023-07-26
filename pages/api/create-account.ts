@@ -25,9 +25,11 @@ export default async function handler(req: NextApiRequest,
             })
             return res.json({
                 status: 201,
+                message: "회원가입 완료!"
             })
         } else {
-            return res.status(400).json({
+            return res.json({
+                status: 400,
                 message: "이미 존재하는 아이디 입니다"
             })
         }
