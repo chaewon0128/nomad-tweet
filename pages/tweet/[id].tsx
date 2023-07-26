@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import Answer from "../../components/Answer";
 import { useEffect } from "react";
 import { AnswerType } from "../../type/type";
+import dateInvert from "../../lib/dateInvert";
 
 
 
@@ -30,12 +31,12 @@ export default function Tweet() {
 
             {isValidating ? <div className="spinner"></div> :
 
-                <div className="bg-white w-[80%] shadow-2xl mt-14 rounded-3xl py-14 px-8 relative animatecss animatecss-bounceIn">
+                <div className="bg-white w-[80%] shadow-2xl mt-14 rounded-3xl py-14 px-8 relative">
                     <Profile name={data?.post.user.name} email={data?.post.user.email} />
                     <p className="ml-2 mt-5">
                         {data?.post.content}
                     </p>
-                    <div className="text-end mt-4 text-sm">{(data?.post.createdAt)?.slice(0, 10)}</div>
+                    <div className="text-end mt-4 text-sm">{dateInvert(data?.post.createdAt)}</div>
                     <div className="mt-5 py-3 border-t border-b flex justify-around items-center">
                         <div className="flex flex-col items-center justify-center cursor-pointer"><HeartBtn liked={data?.isLiked} />likes</div>
                         <div className="flex flex-col items-center justify-center cursor-pointer"><IconBtn type="comment" />comment</div>

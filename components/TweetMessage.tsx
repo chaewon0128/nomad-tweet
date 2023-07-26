@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Profile from './Profile';
 import { TweetMsgType } from '../type/type';
+import dateInvert from '../lib/dateInvert';
 
 
 
@@ -12,7 +13,7 @@ export default function TweetMsg({ index, profile, content, date, name, email }:
                 <div className='space-x-16 cursor-pointer'>
                     <Profile name={name} email={email} avatarUrl={profile?.avatarUrl} />
                     <p className=''>{content}</p>
-                    <div className='text-right text-sm mt-4'>{date.slice(0, 10)}</div>
+                    <div className='text-right text-sm mt-4'>{dateInvert(date)}</div>
                 </div>
             </Link>
         </div>
