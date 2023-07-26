@@ -14,15 +14,15 @@ import dateInvert from "../../lib/dateInvert";
 
 export default function Tweet() {
     const router = useRouter();
-    const { data: answerData } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null, { refreshInterval: 500 })
+    const { data: answerData, mutate } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
     const { error } = useSWR("/api/profile")
     const { data, isValidating } = useSWR(router?.query.id ? `/api/post/${router.query.id}` : null)
     useEffect(() => {
         if (error) {
             router.replace("/log-in")
         }
-
-    }, [error])
+        mutate()
+    }, [error, answerData])
 
 
 
