@@ -43,7 +43,7 @@ export default function Create() {
     return (
         <div className='pt-20 min-h-screen bg-gradient-to-br'>
             < div className='bg-white w-full  animatecss animatecss-fadeInUp rounded-t-3xl flex flex-col space-y-12 items-center justify-center h-[683px] relative' >
-                <h1 className="font-extrabold text-5xl text-[#4286f4]">Create an account</h1>
+                <h1 className="font-extrabold text-5xl mt-16 text-[#4286f4]">Create an account</h1>
                 <form onSubmit={handleSubmit(onSignUp)} className="w-[90%] flex flex-col space-y-3">
                     <Preview register={register} avatarPreview={avatarPreview} />
                     <Input title="name" type="text" register={register} formName="name" errors={errors} />
