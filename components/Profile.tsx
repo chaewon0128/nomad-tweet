@@ -12,7 +12,7 @@ export default function Profile({ name, email, avatarUrl }: ProfileType) {
             </div>
             <div className='w-[80%] flex flex-col'>
                 <span className='text-xl font-semibold inline-block mr-2'>{name}</span>
-                <span className="text-sm inline-block">{emailToId(email)}</span>
+                <span className="text-sm inline-block text-gray-500">{emailToId(email)}</span>
             </div>
 
         </div>

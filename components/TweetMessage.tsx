@@ -12,8 +12,8 @@ export default function TweetMsg({ index, profile, content, date, name, email }:
             <Link href={`/tweet/${index}`}>
                 <div className='space-x-16 cursor-pointer'>
                     <Profile name={name} email={email} avatarUrl={profile?.avatarUrl} />
-                    <p className=''>{content}</p>
-                    <div className='text-right text-sm mt-4'>{dateInvert(date)}</div>
+                    <p className='mt'>{content}</p>
+                    <div className='text-right text-sm mt'>{dateInvert(date)}</div>
                 </div>
             </Link>
         </div>
