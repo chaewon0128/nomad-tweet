@@ -42,8 +42,8 @@ export type TweetsType = {
     tweets: [TweetType]
 }
 export interface ProfileType {
-    name: string,
-    email: string,
+    name?: string,
+    email?: string,
     avatarUrl?: string,
 }
 
@@ -109,8 +109,30 @@ export interface TweetForm {
     Tweet: string,
 }
 
-export type likedType = { liked: boolean }
+export type likedType = { liked: boolean | undefined }
 
 export interface IconType {
-    type: "comment" | "retweet" | "bookmark"
+    type: "comment" | "xmark" | "bookmark"
+}
+
+export interface DataType {
+    isLiked: boolean,
+    post: PostType
+}
+export interface PostType {
+    content: string,
+    createdAt: string,
+    id: number,
+    updatedAt: string,
+    userId: number
+    user: UserType
+}
+export interface UserType {
+    email?: string,
+    id?: number,
+    name?: string,
+}
+
+export interface DeleteType {
+    data: DataType | undefined
 }
