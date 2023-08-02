@@ -4,8 +4,9 @@ import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
 export interface InputType {
     title: string,
     type: string,
-    formName: Path<FormValue>;
-    errors: FieldErrors<FormValue>;
+    formName: Path<FormValue>,
+    required?: boolean,
+    errors?: FieldErrors<FormValue>,
     register: UseFormRegister<FormValue>
 
 }
