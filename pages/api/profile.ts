@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { withIronSessionApiRoute } from "iron-session/next";
 import db from "../../lib/db";
 import { sessionOption } from "../../lib/sessionOption";
+import { encrypt } from "../../lib/password";
 
 declare module "iron-session" {
     interface IronSessionData {
@@ -31,9 +32,33 @@ async function handler(
             res.json({ ok: true, profile })
         }
 
-
     }
+    if (req.method === "POST") {
+        const { email, name, password } = req.body
+        const encryptPassword = encrypt(password)
+        if (password) {
+            await db.user.update({
+                where: {
+                    email,
+                },
+                data: {
+                    name,
+                    password: encryptPassword,
+                }
+            })
+        } else if (password === "") {
+            await db.user.update({
+                where: {
+                    email,
+                },
+                data: {
+                    name,
+                }
+            })
+        }
 
+        res.end()
+    }
 
 }
 

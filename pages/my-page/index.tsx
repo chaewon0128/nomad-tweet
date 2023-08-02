@@ -38,8 +38,7 @@ export default function index() {
             < div className='bg-white w-full  animatecss animatecss-fadeInUp rounded-t-3xl flex flex-col space-y-12 items-center justify-center h-[683px] relative' >
                 <h2 className="font-extrabold text-5xl text-[#4286f4]">My Profile</h2>
                 <XButton page="/" position="top-[-20px]" />
-                <form onSubmit={handleSubmit(onEditPage)} className="w-[90%] flex flex-col space-y-3">
-
+                <form onSubmit={handleSubmit(onEditPage)} className="w-[90%] flex flex-col space-y-4">
                     <input {...register("email")} className="h-12 rounded-full border focus:outline-none pl-5 text-gray-500 " disabled />
                     <input {...register("name")} className="h-12 rounded-full border focus:outline-none pl-5 text-gray-500 " disabled />
                     <MainBtn title="Profile Edit" />

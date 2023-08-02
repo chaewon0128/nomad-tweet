@@ -32,17 +32,16 @@ export default function index() {
         }
     }, [profileData]);
 
-    console.log(profileData)
 
     const onEditPage = async (editForm: FormValue) => {
         mutation(editForm)
-        // if (data?.status === 201) {
-        //     toast.success(data?.message)
-        //     router.push("/my-page")
-        // }
-        // if (data?.status === 400) {
-        //     toast.error(data?.message)
-        // }
+        if (loading) {
+            toast.loading("loading...")
+        } else {
+            toast.success("회원정보가 수정 되었습니다")
+            router.push("/my-page")
+        }
+
     }
     return (
         <div className='pt-20 bg-gradient-to-br'>
