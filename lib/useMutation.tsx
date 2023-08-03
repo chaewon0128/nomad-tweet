@@ -7,10 +7,10 @@ export default function useMutation(url: string): MutationReturnType {
     const [data, setData] = useState<undefined | any>(undefined)
     const [error, setError] = useState<undefined | any>(undefined)
 
-    function mutation(data: any) {
+    function mutation(data: any, method: string = "POST") {
         setLoading(true)
         fetch(url, {
-            method: "POST",
+            method: method,
             headers: {
                 "Content-Type": "application/json"
             },

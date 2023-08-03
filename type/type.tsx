@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
+import { KeyedMutator } from "swr";
 
 export interface InputType {
     title: string,
@@ -34,7 +35,7 @@ export interface XButtonType {
     position: string,
 }
 
-export type MutationReturnType = [(data: any) => void, { loading: boolean, data: undefined | any, error: undefined | any }]
+export type MutationReturnType = [(data: any, method?: string) => void, { loading: boolean, data: undefined | any, error: undefined | any }]
 
 
 export type TweetsType = {
@@ -74,18 +75,23 @@ export interface TweetType {
 }
 
 
-export interface CommentType {
-    name: string,
-    email: string,
-    date: string,
-    content: string,
+export interface CommentDataType {
+    commentData: AnswerType,
+    mutate: KeyedMutator<any>,
 }
-
 export interface AnswerType {
     answer: string,
     createdAt: string,
     user: AnswerUser,
     id: number,
+    tweetid: number,
+    userId: number,
+
+}
+export interface AnswerUser {
+    email: string,
+    name: string,
+    id: number
 }
 
 export interface SessionOptionType {
@@ -93,10 +99,6 @@ export interface SessionOptionType {
     password: string,
 }
 
-export interface AnswerUser {
-    email: string,
-    name: string
-}
 
 
 export interface ModalType {
@@ -134,5 +136,6 @@ export interface UserType {
 }
 
 export interface DeleteType {
-    data: DataType | undefined
+    onClick: () => Promise<void>,
+    size?: string,
 }
