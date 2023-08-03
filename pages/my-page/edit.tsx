@@ -9,9 +9,11 @@ import { FormValue } from "../../type/type";
 import Preview from "../../components/Preview";
 import Input from "../../components/Input";
 import useMutation from "../../lib/useMutation";
+import useUser from "../../lib/useUser";
 
 export default function index() {
-    const [mutation, { loading, data }] = useMutation("/api/profile")
+    const [mutation, { loading }] = useMutation("/api/profile")
+    const error = useUser();
     const [avatarPreview, setAvatarPreview] = useState("")
     const { data: profileData } = useSWR("/api/profile")
     const router = useRouter()

@@ -10,21 +10,37 @@ import { useEffect } from "react";
 import { AnswerType, DataType } from "../../type/type";
 import dateInvert from "../../lib/dateInvert";
 import DeleteBtn from "../../components/button/DeleteBtn";
+import useMutation from "../../lib/useMutation";
+import { Toaster, toast } from "react-hot-toast";
+import useUser from "../../lib/useUser";
 
 
 
 export default function Tweet() {
     const router = useRouter();
-    const { data: answerData, mutate } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
-    const { error } = useSWR("/api/profile")
+    const [mutation, { data: deleteData }] = useMutation("/api/delete")
+    const { data: answerData, mutate, isValidating: isLoading } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
     const { data, isValidating } = useSWR<DataType>(router?.query.id ? `/api/post/${router.query.id}` : null)
-    useEffect(() => {
-        if (error) {
-            router.replace("/log-in")
-        }
-        mutate()
-    }, [error, answerData])
+    const error = useUser();
 
+
+    useEffect(() => {
+        if (!isLoading) mutate();
+    }, [isLoading]);
+
+
+    useEffect(() => {
+        if (deleteData?.status === 200) {
+            toast.success(deleteData?.message)
+            setTimeout(() => (router.push("/")), 1000)
+        }
+        if (deleteData?.status === 400) {
+            toast.error(deleteData?.message)
+        }
+    }, [deleteData])
+    const onTweetDelete = async () => {
+        mutation(data, "DELETE")
+    }
 
 
     return (
@@ -40,15 +56,16 @@ export default function Tweet() {
                         <div className="flex flex-col items-center justify-center cursor-pointer"><HeartBtn liked={data?.isLiked} />likes</div>
                         <div className="flex flex-col items-center justify-center cursor-pointer"><IconBtn type="comment" />comment</div>
                         <div className="flex flex-col items-center justify-center cursor-pointer"><IconBtn type="bookmark" />Mark</div>
-                        <div className="flex flex-col items-center justify-center cursor-pointer"><DeleteBtn data={data} />Delete</div>
+                        <div className="flex flex-col items-center justify-center cursor-pointer"><DeleteBtn onClick={onTweetDelete} />Delete</div>
                     </div>
                     <Textarea />
-                    {answerData?.tweets.map((tweet: AnswerType) => (
-                        <Answer key={tweet?.id} name={tweet?.user.name} email={tweet?.user.email} content={tweet?.answer} date={tweet?.createdAt} />
+                    {answerData?.tweets?.sort((a: AnswerType, b: AnswerType) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((tweet: AnswerType) => (
+                        <Answer commentData={tweet} mutate={mutate} />
                     ))}
                     <XButton page="back" position="top-5" />
                 </div>
             }
+            <div><Toaster /></div>
         </div>
     );
 }

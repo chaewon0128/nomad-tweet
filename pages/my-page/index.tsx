@@ -7,11 +7,13 @@ import XButton from "../../components/button/XButton";
 import MainBtn from "../../components/button/MainBtn";
 import { FormValue } from "../../type/type";
 import { useEffect } from "react";
+import useUser from "../../lib/useUser";
 
 export default function index() {
     const { register, handleSubmit, setValue } = useForm<FormValue>()
     const { data } = useSWR("/api/profile")
     const [mutation] = useMutation("/api/logout")
+    const error = useUser();
     const router = useRouter()
     const onLogOut = () => {
         toast('bye bye!', {
