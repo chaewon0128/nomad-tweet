@@ -34,7 +34,8 @@ async function handler(
 
     }
     if (req.method === "POST") {
-        const { email, name, password } = req.body
+
+        const { email, name, password, avatarId } = req.body
         const encryptPassword = encrypt(password)
         if (password) {
             await db.user.update({
@@ -42,11 +43,11 @@ async function handler(
                     email,
                 },
                 data: {
-                    name,
                     password: encryptPassword,
                 }
             })
-        } else if (password === "") {
+        }
+        if (name) {
             await db.user.update({
                 where: {
                     email,
@@ -56,7 +57,16 @@ async function handler(
                 }
             })
         }
-
+        if (avatarId) {
+            await db.user.update({
+                where: {
+                    email,
+                },
+                data: {
+                    avatarUrl: avatarId,
+                }
+            })
+        }
         res.end()
     }
 

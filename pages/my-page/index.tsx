@@ -1,4 +1,3 @@
-import useSWR from "swr";
 import useMutation from "../../lib/useMutation";
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/router";
@@ -11,9 +10,8 @@ import useUser from "../../lib/useUser";
 
 export default function index() {
     const { register, handleSubmit, setValue } = useForm<FormValue>()
-    const { data } = useSWR("/api/profile")
     const [mutation] = useMutation("/api/logout")
-    const error = useUser();
+    const [error, data] = useUser();
     const router = useRouter()
     const onLogOut = () => {
         toast('bye bye!', {
@@ -30,16 +28,20 @@ export default function index() {
 
     useEffect(() => {
         if (data) {
-            setValue("name", data.profile.name),
-                setValue("email", data.profile.email)
+            setValue("name", data.profile?.name)
+            setValue("email", data.profile?.email)
+            setValue("avatar", data.profile?.avatarUrl)
         }
     }, [data]);
 
+    console.log(data)
     return (
         <div className='pt-20 bg-gradient-to-br'>
             < div className='bg-white w-full  animatecss animatecss-fadeInUp rounded-t-3xl flex flex-col space-y-12 items-center justify-center h-[683px] relative' >
                 <h2 className="font-extrabold text-5xl text-[#4286f4]">My Profile</h2>
                 <XButton page="/" position="top-[-20px]" />
+                {data?.profile?.avatarUrl ? <img className="rounded-full w-20 h-20 shadow-md" src={`https://imagedelivery.net/AknRL7Jzvc4BH3-QpgQFyQ/${data?.profile.avatarUrl}/public`} /> :
+                    <div className='bg-yellow-200 rounded-full w-20 h-20 shadow-md' />}
                 <form onSubmit={handleSubmit(onEditPage)} className="w-[90%] flex flex-col space-y-4">
                     <input {...register("email")} className="h-12 rounded-full border focus:outline-none pl-5 text-gray-500 " disabled />
                     <input {...register("name")} className="h-12 rounded-full border focus:outline-none pl-5 text-gray-500 " disabled />
