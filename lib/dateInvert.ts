@@ -1,6 +1,7 @@
 import moment from "moment";
+import 'moment/locale/ko';
 
-export default function dateInvert(date: string) {
+export default function dateInvert(date: string | undefined) {
 
     const t1 = moment(date)
     const t2 = moment()
