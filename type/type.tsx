@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
-import { KeyedMutator } from "swr";
+
 
 export interface InputType {
     title: string,
@@ -26,7 +26,8 @@ export interface BtnType {
 
 export interface PreviewType {
     register: UseFormRegister<FormValue>,
-    avatarPreview: string,
+    avatar: FileList | undefined,
+    user: ProfileType
 
 }
 
@@ -37,11 +38,7 @@ export interface XButtonType {
 
 export type MutationReturnType = [(data: any, method?: string) => void, { loading: boolean, data: undefined | any, error: undefined | any }]
 
-
-export type TweetsType = {
-    ok: boolean,
-    tweets: [TweetType]
-}
+export type TweetsType = { tweets: [TweetType] }
 export interface ProfileType {
     name?: string,
     email?: string,
@@ -59,25 +56,26 @@ export interface TweetMsgType {
     profile: ProfileType
     content: string,
     date: string,
-    liked: boolean,
-    name: string,
-    email: string
-
+    liked: number,
+    answer: number,
 }
 
 export interface TweetType {
     id: number,
     content: string,
     createdAt: string,
-    liked: boolean,
-    user: TweetUser
+    user: TweetUser,
+    _count: CountingType
+}
 
+export interface CountingType {
+    favorite: number,
+    answer: number,
 }
 
 
 export interface CommentDataType {
     commentData: AnswerType,
-    mutate: KeyedMutator<any>,
 }
 export interface AnswerType {
     answer: string,
@@ -109,6 +107,7 @@ export interface ModalType {
 
 export interface TweetForm {
     Tweet: string,
+    tweetImg?: FileList,
 }
 
 export type likedType = { liked: boolean | undefined }
@@ -127,12 +126,14 @@ export interface PostType {
     id: number,
     updatedAt: string,
     userId: number
-    user: UserType
+    user: UserType,
+    _count: CountingType
 }
 export interface UserType {
     email?: string,
     id?: number,
     name?: string,
+    avatarUrl?: string
 }
 
 export interface DeleteType {

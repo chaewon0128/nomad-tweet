@@ -20,14 +20,19 @@ export default function Tweet() {
     const router = useRouter();
     const [mutation, { data: deleteData }] = useMutation("/api/delete")
     const { data: answerData, mutate, isValidating: isLoading } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
-    const { data, isValidating } = useSWR<DataType>(router?.query.id ? `/api/post/${router.query.id}` : null)
-    const error = useUser();
+    const { data, isValidating, mutate: countingMutate } = useSWR<DataType>(router?.query.id ? `/api/post/${router.query.id}` : null)
+    const [error] = useUser();
 
 
     useEffect(() => {
         if (!isLoading) mutate();
+
     }, [isLoading]);
 
+    useEffect(() => {
+        countingMutate()
+
+    }, [data]);
 
     useEffect(() => {
         if (deleteData?.status === 200) {
@@ -47,20 +52,20 @@ export default function Tweet() {
         <div className="w-full bg-gradient-to-br min-h-screen flex justify-center items-center">
             {isValidating ? <div className="spinner"></div> :
                 <div className="bg-white w-[80%] shadow-2xl mt-14 rounded-3xl py-14 px-8 relative">
-                    <Profile name={data?.post.user.name} email={data?.post?.user.email} />
+                    <Profile name={data?.post.user.name} email={data?.post?.user.email} avatarUrl={data?.post?.user.avatarUrl} />
                     <p className="ml-2 mt-5">
                         {data?.post.content}
                     </p>
-                    <div className="text-end mt-4 text-sm">{dateInvert(data?.post.createdAt)}</div>
+                    <div className="text-end mt-4 text-xs">{dateInvert(data?.post.createdAt)}</div>
                     <div className="mt-5 py-3 border-t border-b flex justify-around items-center">
-                        <div className="flex flex-col items-center justify-center cursor-pointer"><HeartBtn liked={data?.isLiked} />likes</div>
-                        <div className="flex flex-col items-center justify-center cursor-pointer"><IconBtn type="comment" />comment</div>
-                        <div className="flex flex-col items-center justify-center cursor-pointer"><IconBtn type="bookmark" />Mark</div>
-                        <div className="flex flex-col items-center justify-center cursor-pointer"><DeleteBtn onClick={onTweetDelete} />Delete</div>
+                        <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><HeartBtn liked={data?.isLiked} />{`${data?.post._count?.favorite} likes`}</div>
+                        <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><IconBtn type="comment" />{`${data?.post._count?.answer} comment`}</div>
+                        <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><IconBtn type="bookmark" />Mark</div>
+                        <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><DeleteBtn onClick={onTweetDelete} />Delete</div>
                     </div>
                     <Textarea />
                     {answerData?.tweets?.sort((a: AnswerType, b: AnswerType) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((tweet: AnswerType) => (
-                        <Answer commentData={tweet} mutate={mutate} />
+                        <Answer commentData={tweet} key={tweet.id} />
                     ))}
                     <XButton page="back" position="top-5" />
                 </div>
