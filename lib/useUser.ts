@@ -5,7 +5,7 @@ import useSWR from "swr";
 
 export default function useUser() {
     const router = useRouter()
-    const { error } = useSWR("/api/profile")
+    const { error, data, isValidating } = useSWR("/api/profile")
     useEffect(() => {
         if (error) {
             router.replace("/log-in")
@@ -13,6 +13,6 @@ export default function useUser() {
     }, [error])
 
 
-    return error;
+    return [error, data, isValidating];
 }
 
