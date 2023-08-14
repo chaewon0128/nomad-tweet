@@ -23,7 +23,14 @@ async function handler(
                         select: {
                             id: true,
                             name: true,
-                            email: true
+                            email: true,
+                            avatarUrl: true,
+                        }
+                    },
+                    _count: {
+                        select: {
+                            favorite: true,
+                            answer: true,
                         }
                     }
                 }
