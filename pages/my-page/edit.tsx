@@ -22,12 +22,8 @@ export default function Edit() {
         if (data) {
             setValue("name", data.profile.name),
                 setValue("email", data.profile.email)
-
         }
     }, [data]);
-
-
-
 
     const onEditPage = async ({ name, email, password, avatar }: FormValue) => {
         if (avatar && avatar.length > 0 && data.profile.id) {

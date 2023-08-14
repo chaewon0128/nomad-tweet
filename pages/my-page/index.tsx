@@ -34,7 +34,7 @@ export default function index() {
         }
     }, [data]);
 
-    console.log(data)
+
     return (
         <div className='pt-20 bg-gradient-to-br'>
             < div className='bg-white w-full  animatecss animatecss-fadeInUp rounded-t-3xl flex flex-col space-y-12 items-center justify-center h-[683px] relative' >
