@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <div className='pt-10 bg-gradient-to-br'>
       <Title nickname={data?.profile?.name} isLoading={isValidating} />
-      <div className='bg-white w-full rounded-t-3xl py-1 px-3 animatecss animatecss-fadeInUp '>
+      <div className='bg-white w-full pb-16 rounded-t-3xl py-1 px-3 animatecss animatecss-fadeInUp '>
         {tweetMsg?.tweets?.sort((a: TweetType, b: TweetType) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((tweet: TweetType) => (
           <TweetMsg
             key={tweet.id}
