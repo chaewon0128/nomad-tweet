@@ -12,11 +12,9 @@ export default function Home() {
   const { data: tweetMsg, mutate, isValidating: isLoading } = useSWR<TweetsType>("/api/post")
   const [error, data, isValidating] = useUser();
 
-
   useEffect(() => {
     if (!isLoading) mutate();
   }, [isLoading]);
-
 
 
 
@@ -33,6 +31,7 @@ export default function Home() {
             liked={tweet._count.favorite}
             answer={tweet._count.answer}
             content={tweet.content}
+            tweetImage={tweet.tweetImg}
           />
         ))}
       </div>

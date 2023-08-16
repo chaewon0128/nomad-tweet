@@ -41,10 +41,11 @@ async function handler(
             })
         }
         if (req.method === "POST") {
-            const { body: { Tweet }, session: { user } } = req
+            const { body: { Tweet, tweetImageId }, session: { user } } = req
             const post = await db.tweet.create({
                 data: {
                     content: Tweet,
+                    tweetImg: tweetImageId,
                     liked: false,
                     user: {
                         connect: {
@@ -53,6 +54,7 @@ async function handler(
                     }
                 }
             })
+            console.log(req.body)
             return res.json({
                 ok: true,
                 post,

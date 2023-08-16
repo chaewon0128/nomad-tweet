@@ -58,6 +58,7 @@ export interface TweetMsgType {
     date: string,
     liked: number,
     answer: number,
+    tweetImage?: string
 }
 
 export interface TweetType {
@@ -65,6 +66,7 @@ export interface TweetType {
     content: string,
     createdAt: string,
     user: TweetUser,
+    tweetImg?: string,
     _count: CountingType
 }
 
@@ -127,6 +129,7 @@ export interface PostType {
     updatedAt: string,
     userId: number
     user: UserType,
+    tweetImg?: string,
     _count: CountingType
 }
 export interface UserType {

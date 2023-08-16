@@ -14,9 +14,6 @@ import useMutation from "../../lib/useMutation";
 import { Toaster, toast } from "react-hot-toast";
 import useUser from "../../lib/useUser";
 import lineBreak from "../../lib/lineBreak";
-import cuttie from "../../image/create.png"
-import Image from "next/image";
-
 
 
 export default function Tweet() {
@@ -25,7 +22,6 @@ export default function Tweet() {
     const { data: answerData, mutate, isValidating: isLoading } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
     const { data, isValidating, mutate: countingMutate } = useSWR<DataType>(router?.query.id ? `/api/post/${router.query.id}` : null)
     const [error] = useUser();
-
 
     useEffect(() => {
         if (!isLoading) mutate();
@@ -55,15 +51,15 @@ export default function Tweet() {
         <div className="w-full bg-gradient-to-br min-h-screen flex justify-center items-center">
             {isValidating ? <div className="spinner"></div> :
                 <div className="bg-white w-[80%] shadow-2xl mt-14 rounded-3xl py-14 px-8 relative">
-                    <Profile name={data?.post.user.name} email={data?.post?.user.email} avatarUrl={data?.post?.user.avatarUrl} />
-                    <div className="bg-red-200 max-h-96 w-full"><Image src={cuttie} /></div>
+                    <Profile name={data?.post?.user.name} email={data?.post?.user.email} avatarUrl={data?.post?.user.avatarUrl} />
+                    {data?.post?.tweetImg ? <img src={`https://imagedelivery.net/AknRL7Jzvc4BH3-QpgQFyQ/${data?.post.tweetImg}/public`} className="mt-5" /> : null}
                     <p className="ml-2 mt-5">
-                        {lineBreak(data?.post.content)}
+                        {lineBreak(data?.post?.content)}
                     </p>
-                    <div className="text-end mt-4 text-xs">{dateInvert(data?.post.createdAt)}</div>
+                    <div className="text-end mt-4 text-xs">{dateInvert(data?.post?.createdAt)}</div>
                     <div className="mt-5 py-3 border-t border-b flex justify-around items-center">
-                        <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><HeartBtn liked={data?.isLiked} />{`${data?.post._count?.favorite} likes`}</div>
-                        <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><IconBtn type="comment" />{`${data?.post._count?.answer} comment`}</div>
+                        <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><HeartBtn liked={data?.isLiked} />{`${data?.post?._count?.favorite} likes`}</div>
+                        <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><IconBtn type="comment" />{`${data?.post?._count?.answer} comment`}</div>
                         <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><IconBtn type="bookmark" />Mark</div>
                         <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><DeleteBtn onClick={onTweetDelete} />Delete</div>
                     </div>
