@@ -7,7 +7,7 @@ import { Toaster, toast } from "react-hot-toast";
 
 
 export default function Answer({ commentData }: CommentDataType) {
-    const [mutation, { data: deleteData }] = useMutation("/api/answer-delete")
+    const [mutation, { data: deleteData }] = useMutation("/api/post/answer-delete")
     useEffect(() => {
         if (deleteData?.status === 200) {
             toast.success(deleteData?.message)

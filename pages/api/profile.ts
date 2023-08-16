@@ -3,6 +3,7 @@ import { withIronSessionApiRoute } from "iron-session/next";
 import db from "../../lib/db";
 import { sessionOption } from "../../lib/sessionOption";
 import { encrypt } from "../../lib/password";
+import { IResponseType } from "../../type/type";
 
 declare module "iron-session" {
     interface IronSessionData {
@@ -14,7 +15,7 @@ declare module "iron-session" {
 
 async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<ResponseType>
+    res: NextApiResponse<IResponseType>
 ) {
     {
         if (req.method === "GET") {

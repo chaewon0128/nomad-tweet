@@ -3,6 +3,7 @@ import { withIronSessionApiRoute } from "iron-session/next";
 import db from "../../lib/db";
 import { sessionOption } from "../../lib/sessionOption";
 import { decrypt } from '../../lib/password';
+import { IResponseType } from "../../type/type";
 
 declare module "iron-session" {
     interface IronSessionData {
@@ -14,19 +15,19 @@ declare module "iron-session" {
 
 async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<ResponseType>
+    res: NextApiResponse<IResponseType>
 ) {
     {
         if (req.method === "POST") {
             const { email, password } = req.body;
             const user = await db.user.findUnique({
                 where: {
-
                     email,
                 }
             });
             if (!user) {
                 res.json({
+                    ok: false,
                     status: 404,
                     message: "존재하지 않는 아이디 입니다"
                 })
@@ -40,10 +41,12 @@ async function handler(
                     }
                     await req.session.save()
                     res.json({
+                        ok: true,
                         status: 200
                     })
                 } else {
                     res.json({
+                        ok: false,
                         status: 401,
                         message: "비밀번호를 확인 하세요"
                     })

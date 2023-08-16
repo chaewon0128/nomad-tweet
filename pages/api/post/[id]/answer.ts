@@ -2,10 +2,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../../lib/db";
 import { sessionOption } from "../../../../lib/sessionOption";
 import { withIronSessionApiRoute } from "iron-session/next";
+import { IResponseType } from "../../../../type/type";
 
 
 async function handler(req: NextApiRequest,
-    res: NextApiResponse<ResponseType>) {
+    res: NextApiResponse<IResponseType>) {
     if (req.method === "GET") {
         const { query: { id } } = req
         const tweets = await db.answer.findMany({
@@ -48,6 +49,7 @@ async function handler(req: NextApiRequest,
         })
 
         res.json({
+            ok: true,
             status: 201,
             comment,
         })

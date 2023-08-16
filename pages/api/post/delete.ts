@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { withIronSessionApiRoute } from "iron-session/next";
-import { sessionOption } from "../../lib/sessionOption";
+import db from "../../../lib/db";
+import { sessionOption } from "../../../lib/sessionOption";
+import { IResponseType } from "../../../type/type";
+
 
 
 declare module "iron-session" {
@@ -13,34 +16,34 @@ declare module "iron-session" {
 
 async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<ResponseType>
+    res: NextApiResponse<IResponseType>
 ) {
     {
         const {
-            body: { id, userId },
+            body: { post: { id, userId } },
             session: { user },
         } = req;
-
         if (req.method !== "DELETE") return;
-
         if (userId === user?.id) {
-            await db?.answer.delete({
+            await db?.tweet.delete({
                 where: {
                     id: +id.toString(),
                 }
             })
             res.json({
+                ok: true,
                 status: 200,
-                message: "답글이 삭제 되었습니다."
+                message: "트윗이 삭제 되었습니다."
             })
         } else {
             res.json({
+                ok: false,
                 status: 400,
-                message: "본인 답글만 삭제 가능합니다."
+                message: "본인 트윗만 삭제 가능합니다."
             })
         }
-        console.log(id, userId, user)
     }
-
 }
+
+
 export default withIronSessionApiRoute(handler, sessionOption)

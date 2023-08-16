@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { withIronSessionApiRoute } from "iron-session/next";
-import db from "../../lib/db";
 import { sessionOption } from "../../lib/sessionOption";
+import { IResponseType } from "../../type/type";
 
 declare module "iron-session" {
     interface IronSessionData {
@@ -13,7 +13,7 @@ declare module "iron-session" {
 
 async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<ResponseType>
+    res: NextApiResponse<IResponseType>
 ) {
     const { profile } = req.body
 
@@ -21,12 +21,10 @@ async function handler(
 
         req.session.destroy();
         res.json({
+            ok: true,
             status: 200,
         })
-
     }
-
-
 }
 
 

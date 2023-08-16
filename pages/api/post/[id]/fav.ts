@@ -2,11 +2,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../../lib/db";
 import { withIronSessionApiRoute } from "iron-session/next";
 import { sessionOption } from "../../../../lib/sessionOption";
+import { IResponseType } from "../../../../type/type";
 
 
 
 async function handler(req: NextApiRequest,
-    res: NextApiResponse<ResponseType>) {
+    res: NextApiResponse<IResponseType>) {
 
 
     if (req.method === "POST") {

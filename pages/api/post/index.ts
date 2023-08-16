@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { withIronSessionApiRoute } from "iron-session/next";
 import db from "../../../lib/db";
 import { sessionOption } from "../../../lib/sessionOption";
+import { IResponseType } from "../../../type/type";
 
 declare module "iron-session" {
     interface IronSessionData {
@@ -13,7 +14,7 @@ declare module "iron-session" {
 
 async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<ResponseType>
+    res: NextApiResponse<IResponseType>
 ) {
     {
         if (req.method === "GET") {
@@ -54,7 +55,6 @@ async function handler(
                     }
                 }
             })
-            console.log(req.body)
             return res.json({
                 ok: true,
                 post,

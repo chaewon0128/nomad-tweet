@@ -143,3 +143,10 @@ export interface DeleteType {
     onClick: () => Promise<void>,
     size?: string,
 }
+
+export interface IResponseType {
+    ok: boolean,
+    statuse?: number,
+    message?: string,
+    [key: string]: any,
+}

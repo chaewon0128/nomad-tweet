@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../lib/db";
 import { encrypt } from "../../lib/password";
+import { IResponseType } from "../../type/type";
 
 export default async function handler(req: NextApiRequest,
-    res: NextApiResponse<ResponseType>) {
+    res: NextApiResponse<IResponseType>) {
 
     if (req.method === "POST") {
-        const { name, email, password, avatar } = req.body;
+        const { name, email, password } = req.body;
         const encryptPassword = encrypt(password)
 
 
@@ -24,11 +25,13 @@ export default async function handler(req: NextApiRequest,
                 }
             })
             return res.json({
+                ok: true,
                 status: 201,
                 message: "회원가입 완료!"
             })
         } else {
             return res.json({
+                ok: false,
                 status: 400,
                 message: "이미 존재하는 아이디 입니다"
             })
