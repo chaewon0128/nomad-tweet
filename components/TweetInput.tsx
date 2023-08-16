@@ -43,7 +43,7 @@ export default function TweetInput() {
 
     return (
         <form onSubmit={handleSubmit(onTweet)} className='fixed bottom-2 min-w-[500px] flex '>
-            <textarea {...register("Tweet")} className={cls(`border mx-auto w-[95%] pl-12 pr-28 pt-3 resize-none h-12`, tweetImage ? "rounded-xl h-60 pr-56 pt-14 " : "rounded-full h-14")} rows={tweetImage ? 4 : 1} />
+            <textarea {...register("Tweet")} className={cls(`border mx-auto w-[95%] pl-14 pr-28 pt-[14px] resize-none h-12`, tweetImage ? "rounded-xl h-60 pr-56 pt-14 " : "rounded-full h-14")} rows={tweetImage ? 4 : 1} />
             <button className='absolute right-8 top-[15px] bg-[#4286f4]  text-white  h-7 px-2 rounded-full '>
                 <SendIcon />
             </button>
