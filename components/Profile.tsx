@@ -1,6 +1,5 @@
 import emailToId from "../lib/emailToId";
 import { ProfileType } from "../type/type";
-import Image from "next/image";
 
 
 
