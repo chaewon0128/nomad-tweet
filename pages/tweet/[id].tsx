@@ -13,6 +13,9 @@ import DeleteBtn from "../../components/button/DeleteBtn";
 import useMutation from "../../lib/useMutation";
 import { Toaster, toast } from "react-hot-toast";
 import useUser from "../../lib/useUser";
+import lineBreak from "../../lib/lineBreak";
+import cuttie from "../../image/create.png"
+import Image from "next/image";
 
 
 
@@ -53,8 +56,9 @@ export default function Tweet() {
             {isValidating ? <div className="spinner"></div> :
                 <div className="bg-white w-[80%] shadow-2xl mt-14 rounded-3xl py-14 px-8 relative">
                     <Profile name={data?.post.user.name} email={data?.post?.user.email} avatarUrl={data?.post?.user.avatarUrl} />
+                    <div className="bg-red-200 max-h-96 w-full"><Image src={cuttie} /></div>
                     <p className="ml-2 mt-5">
-                        {data?.post.content}
+                        {lineBreak(data?.post.content)}
                     </p>
                     <div className="text-end mt-4 text-xs">{dateInvert(data?.post.createdAt)}</div>
                     <div className="mt-5 py-3 border-t border-b flex justify-around items-center">

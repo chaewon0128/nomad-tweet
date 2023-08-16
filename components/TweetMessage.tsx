@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Profile from './Profile';
 import { TweetMsgType } from '../type/type';
 import dateInvert from '../lib/dateInvert';
+import lineBreak from '../lib/lineBreak';
 
 
 
@@ -13,7 +14,7 @@ export default function TweetMsg({ index, profile, content, date, liked, answer 
             <Link href={`/tweet/${index}`}>
                 <div className='space-x-16 cursor-pointer'>
                     <Profile name={profile?.name} email={profile?.email} avatarUrl={profile?.avatarUrl} />
-                    <p >{content}</p>
+                    {lineBreak(content)}
                     <div className='text-xs top-4 right-4 absolute '>{dateInvert(date)}</div>
                     <div className='text-right text-xs'>
                         <span>
