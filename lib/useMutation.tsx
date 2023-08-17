@@ -10,6 +10,7 @@ export default function useMutation(url: string): MutationReturnType {
     function mutation(data: any, method: string = "POST") {
         setLoading(true)
         fetch(url, {
+            referrerPolicy: 'no-referrer-when-downgrade',
             method: method,
             headers: {
                 "Content-Type": "application/json"
