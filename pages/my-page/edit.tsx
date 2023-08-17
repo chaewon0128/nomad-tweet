@@ -42,7 +42,15 @@ export default function Edit() {
                 password,
                 avatarId: id
             })
+        } else {
+            mutation({
+                name,
+                email,
+                password,
+
+            })
         }
+
         if (loading) {
             toast.loading("loading...")
         } else {
@@ -56,7 +64,7 @@ export default function Edit() {
             < div className='bg-white w-full  animatecss animatecss-fadeInUp rounded-t-3xl flex flex-col space-y-12 items-center justify-center h-[683px] relative' >
                 <h2 className="font-extrabold text-5xl mt-16 text-[#4286f4]">My Profile</h2>
                 <XButton page="/" position="top-[-20px]" />
-                <form onSubmit={handleSubmit(onEditPage)} className="w-[90%] flex flex-col space-y-3">
+                <form onSubmit={handleSubmit(onEditPage)} className="w-[90%] flex flex-col space-y-3" method="POST">
                     <Preview register={register} avatar={avatar} user={data?.profile} />
                     <input {...register("email")} className="h-12 rounded-full border focus:outline-none pl-5 text-gray-500 bg-gray-100" readOnly />
                     <input  {...register("name")} className="h-12 rounded-full border pl-5 text-gray-500 " />

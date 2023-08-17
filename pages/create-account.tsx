@@ -38,7 +38,7 @@ export default function Create() {
                 <div className="w-32  m-auto">
                     <Image src={tweety} alt="tweety" />
                 </div>
-                <form onSubmit={handleSubmit(onSignUp)} className="w-[90%] flex flex-col space-y-2">
+                <form onSubmit={handleSubmit(onSignUp)} className="w-[90%] flex flex-col space-y-2" method="POST">
                     <Input title="name" type="text" register={register} formName="name" errors={errors} />
                     <Input title="email" type="email" register={register} formName="email" errors={errors} />
                     <Input title="password" type="password" register={register} formName="password" errors={errors} required={true} />
