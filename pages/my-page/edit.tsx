@@ -52,7 +52,7 @@ export default function Edit() {
 
     }
     return (
-        <div className='pt-20 bg-gradient-to-br'>
+        <div className='pt-16 bg-gradient-to-br overflow-hidden'>
             < div className='bg-white w-full  animatecss animatecss-fadeInUp rounded-t-3xl flex flex-col space-y-12 items-center justify-center h-[683px] relative' >
                 <h2 className="font-extrabold text-5xl mt-16 text-[#4286f4]">My Profile</h2>
                 <XButton page="/" position="top-[-20px]" />
