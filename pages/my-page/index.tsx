@@ -11,7 +11,7 @@ import useUser from "../../lib/useUser";
 export default function index() {
     const { register, handleSubmit, setValue } = useForm<FormValue>()
     const [mutation] = useMutation("/api/logout")
-    const [error, data] = useUser();
+    const [data] = useUser();
     const router = useRouter()
     const onLogOut = () => {
         toast('bye bye!', {

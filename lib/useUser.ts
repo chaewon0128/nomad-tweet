@@ -13,6 +13,6 @@ export default function useUser() {
     }, [error])
 
 
-    return [error, data, isValidating];
+    return [data, isValidating];
 }
 

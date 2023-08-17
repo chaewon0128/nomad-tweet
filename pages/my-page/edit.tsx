@@ -12,7 +12,7 @@ import useUser from "../../lib/useUser";
 
 export default function Edit() {
     const [mutation, { loading }] = useMutation("/api/profile")
-    const [error, data] = useUser();
+    const [data] = useUser();
     const router = useRouter()
     const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm<FormValue>()
     const avatar = watch("avatar")
