@@ -11,6 +11,7 @@ export default function useMutation(url: string): MutationReturnType {
         setLoading(true)
         fetch(url, {
             referrerPolicy: 'no-referrer-when-downgrade',
+            credentials: "include",
             method: method,
             headers: {
                 "Content-Type": "application/json"
