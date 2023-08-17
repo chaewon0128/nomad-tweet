@@ -12,7 +12,6 @@ import dateInvert from "../../lib/dateInvert";
 import DeleteBtn from "../../components/button/DeleteBtn";
 import useMutation from "../../lib/useMutation";
 import { Toaster, toast } from "react-hot-toast";
-import useUser from "../../lib/useUser";
 import lineBreak from "../../lib/lineBreak";
 
 
@@ -21,7 +20,6 @@ export default function Tweet() {
     const [mutation, { data: deleteData }] = useMutation("/api/post/delete")
     const { data: answerData, mutate, isValidating: isLoading } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
     const { data, isValidating, mutate: countingMutate } = useSWR<DataType>(router?.query.id ? `/api/post/${router.query.id}` : null)
-    const [error] = useUser();
 
     useEffect(() => {
         if (!isLoading) mutate();
