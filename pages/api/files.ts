@@ -23,7 +23,7 @@ async function handler(
                 Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLOUD_FAIR}`,
             },
         })).json()
-
+        console.log(req)
         res.json({
             ok: true,
             ...response.result
