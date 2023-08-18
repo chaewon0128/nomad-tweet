@@ -17,9 +17,9 @@ export default function Create() {
     const router = useRouter()
     const onSignUp = async (validForm: FormValue) => {
         if (loading) return;
-        mutation(validForm)
-
+        mutation(validForm, "POST")
     }
+
     useEffect(() => {
         if (data?.status === 201) {
             toast.success(data?.message)
