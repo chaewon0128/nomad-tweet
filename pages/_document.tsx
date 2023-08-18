@@ -7,7 +7,7 @@ export default function Document() {
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" />
                 <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Infant:ital,wght@1,900&display=swap" rel="stylesheet" />
-                <title>Tweety</title>
+
             </Head>
             <body className='min-h-screen border m-auto from-[#fffc00] to-[#ffffff] w-[500px]'>
                 <Main />

@@ -9,13 +9,14 @@ import useUser from '../lib/useUser';
 
 
 export default function Home() {
-  const { data: tweetMsg, mutate, isValidating: isLoading } = useSWR<TweetsType>("/api/post")
+  const { data: tweetMsg, mutate } = useSWR<TweetsType>("/api/post")
   const [data, isValidating] = useUser();
 
   useEffect(() => {
-    if (!isLoading) mutate();
-  }, [isLoading]);
 
+    mutate();
+
+  }, [tweetMsg]);
 
 
   return (

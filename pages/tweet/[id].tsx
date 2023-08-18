@@ -22,9 +22,10 @@ export default function Tweet() {
     const { data, isValidating, mutate: countingMutate } = useSWR<DataType>(router?.query.id ? `/api/post/${router.query.id}` : null)
 
     useEffect(() => {
-        if (!isLoading) mutate();
-
-    }, [isLoading]);
+        if (answerData) {
+            mutate();
+        }
+    }, [answerData]);
 
     useEffect(() => {
         countingMutate()
