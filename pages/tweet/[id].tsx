@@ -18,7 +18,7 @@ import lineBreak from "../../lib/lineBreak";
 export default function Tweet() {
     const router = useRouter();
     const [mutation, { data: deleteData }] = useMutation("/api/post/delete")
-    const { data: answerData, mutate, isValidating: isLoading } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
+    const { data: answerData, mutate } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
     const { data, isValidating, mutate: countingMutate } = useSWR<DataType>(router?.query.id ? `/api/post/${router.query.id}` : null)
 
     useEffect(() => {
