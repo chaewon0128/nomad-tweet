@@ -33,6 +33,8 @@ model Tweet {
   answer    Answer[]
   favorite  Favorite[]
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+ @@index([userId])
 }
 
 model Answer {
@@ -44,6 +46,8 @@ model Answer {
   tweetid   Int
   tweet     Tweet    @relation(fields: [tweetid], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+  @@index([tweetid])
 }
 
 model Favorite {
@@ -54,4 +58,6 @@ model Favorite {
   tweetid   Int
   tweet     Tweet    @relation(fields: [tweetid], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+  @@index([tweetid])
 }
