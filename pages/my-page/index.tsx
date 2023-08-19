@@ -40,11 +40,13 @@ export default function index() {
             < div className='bg-white w-full  animatecss animatecss-fadeInUp rounded-t-3xl flex flex-col space-y-12 items-center justify-center h-[683px] relative' >
                 <h2 className="font-extrabold text-5xl text-[#4286f4]">My Profile</h2>
                 <XButton page="/" position="top-[-20px]" />
-                {data?.profile?.avatarUrl ? <img className="rounded-full w-20 h-20 shadow-md" src={`https://imagedelivery.net/AknRL7Jzvc4BH3-QpgQFyQ/${data?.profile.avatarUrl}/public`} /> :
+                {data?.profile?.avatarUrl ? <img className="rounded-full w-20 h-20 shadow-md" alt={`${data?.profile.name}의 프로필 이미지`} src={`https://imagedelivery.net/AknRL7Jzvc4BH3-QpgQFyQ/${data?.profile.avatarUrl}/public`} /> :
                     <div className='bg-yellow-200 rounded-full w-20 h-20 shadow-md' />}
                 <form onSubmit={handleSubmit(onEditPage)} className="w-[90%] flex flex-col space-y-4">
-                    <input {...register("email")} className="h-12 rounded-full border focus:outline-none pl-5 text-gray-500 " disabled />
-                    <input {...register("name")} className="h-12 rounded-full border focus:outline-none pl-5 text-gray-500 " disabled />
+                    <label htmlFor="email" className="sr-only">email</label>
+                    <input id="email" {...register("email")} className="h-12 rounded-full border focus:outline-none pl-5 text-gray-500 " disabled />
+                    <label htmlFor="name" className="sr-only">name</label>
+                    <input id="name" {...register("name")} className="h-12 rounded-full border focus:outline-none pl-5 text-gray-500 " disabled />
                     <MainBtn title="Profile Edit" />
                 </form>
                 <button onClick={onLogOut} className="text-[#4286f4] hover:underline">Log out</button>

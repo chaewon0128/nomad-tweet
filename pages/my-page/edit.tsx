@@ -66,8 +66,10 @@ export default function Edit() {
                 <XButton page="/" position="top-[-20px]" />
                 <form onSubmit={handleSubmit(onEditPage)} className="w-[90%] flex flex-col space-y-3" method="POST">
                     <Preview register={register} avatar={avatar} user={data?.profile} />
-                    <input {...register("email")} className="h-12 rounded-full border focus:outline-none pl-5 text-gray-500 bg-gray-100" readOnly />
-                    <input  {...register("name")} className="h-12 rounded-full border pl-5 text-gray-500 " />
+                    <label htmlFor="email" className="sr-only">email</label>
+                    <input id="email" {...register("email")} className="h-12 rounded-full border focus:outline-none pl-5 text-gray-500 bg-gray-100" readOnly />
+                    <label htmlFor="name" className="sr-only">name</label>
+                    <input id="name" {...register("name")} className="h-12 rounded-full border pl-5 text-gray-500 " />
                     <Input title="password" type="password" register={register} formName="password" errors={errors} required={false} />
                     <MainBtn title="Edit Confirm" />
                 </form>

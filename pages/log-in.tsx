@@ -17,7 +17,6 @@ export default function LogIn() {
     const router = useRouter()
     const onCreatePage = () => {
         router.push("/create-account")
-
     }
     const onLogIn = async (validForm: FormValue) => {
         if (loading) return;
@@ -42,10 +41,6 @@ export default function LogIn() {
 
         }
     }, [data])
-
-
-
-
 
     return (
         <div className=' flex flex-col space-y-5 items-center justify-center pt-10 min-h-screen bg-gradient-to-b from-[#fffc00] to-[#ffffff]'>
