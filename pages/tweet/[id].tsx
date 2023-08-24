@@ -13,24 +13,33 @@ import DeleteBtn from "../../components/button/DeleteBtn";
 import useMutation from "../../lib/useMutation";
 import { Toaster, toast } from "react-hot-toast";
 import lineBreak from "../../lib/lineBreak";
+import { useForm } from "react-hook-form";
 
 
 export default function Tweet() {
     const router = useRouter();
-    const [mutation, { data: deleteData }] = useMutation("/api/post/delete")
-    const { data: answerData, mutate } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
+    const [onDelete, { data: deleteData }] = useMutation("/api/post/delete")
+    const [uploading, { loading, data: answerData }] = useMutation(`/api/post/${router.query.id}/answer`)
+    const [deleteAnswer, { data: deleteAnswerData }] = useMutation("/api/post/answer-delete")
+    const { data: answers, mutate: updateAnswer } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
     const { data, isValidating, mutate: countingMutate } = useSWR<DataType>(router?.query.id ? `/api/post/${router.query.id}` : null)
+    const { register, handleSubmit, reset } = useForm()
+
+    const onAnswer = (answerForm: any) => {
+        if (loading) return;
+        uploading(answerForm)
+        reset();
+    }
+    const onTweetDelete = async () => {
+        onDelete(data, "DELETE")
+    }
 
     useEffect(() => {
         if (answerData) {
-            mutate();
+            updateAnswer();
+            countingMutate();
         }
     }, [answerData]);
-
-    useEffect(() => {
-        countingMutate()
-
-    }, [data]);
 
     useEffect(() => {
         if (deleteData?.status === 200) {
@@ -41,11 +50,22 @@ export default function Tweet() {
             toast.error(deleteData?.message)
         }
     }, [deleteData])
-    const onTweetDelete = async () => {
-        mutation(data, "DELETE")
+
+    useEffect(() => {
+        if (deleteAnswerData?.status === 200) {
+            toast.success(deleteAnswerData?.message)
+            updateAnswer()
+        }
+        if (deleteAnswerData?.status === 400) {
+            toast.error(deleteAnswerData?.message)
+        }
+    }, [deleteAnswerData])
+
+
+    const onDeleteAnswer = async (deleteaAnswer: AnswerType) => {
+        deleteAnswer(deleteaAnswer, "DELETE")
+
     }
-
-
     return (
         <div className="w-full bg-gradient-to-br min-h-screen flex justify-center items-center">
             {isValidating ? <div className="spinner"></div> :
@@ -62,9 +82,9 @@ export default function Tweet() {
                         <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><IconBtn type="bookmark" />Mark</div>
                         <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><DeleteBtn onClick={onTweetDelete} />Delete</div>
                     </div>
-                    <Textarea />
-                    {answerData?.tweets?.sort((a: AnswerType, b: AnswerType) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((tweet: AnswerType) => (
-                        <Answer commentData={tweet} key={tweet.id} />
+                    <Textarea onAnswer={onAnswer} handleSubmit={handleSubmit} register={register} />
+                    {answers?.tweets?.sort((a: AnswerType, b: AnswerType) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((tweet: AnswerType) => (
+                        <Answer commentData={tweet} key={tweet.id} onDelteAnswer={() => onDeleteAnswer(tweet)} />
                     ))}
                     <XButton page="back" position="top-5" />
                 </div>

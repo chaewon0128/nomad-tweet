@@ -1,18 +1,9 @@
-import { useForm } from 'react-hook-form';
-import useMutation from '../lib/useMutation';
-import { useRouter } from 'next/router';
+import { ITextarea } from "../type/type";
 
 
-export default function Textarea() {
-    const router = useRouter();
-    const [mutation, { loading }] = useMutation(`/api/post/${router.query.id}/answer`)
-    const { register, handleSubmit, reset } = useForm()
 
-    const onAnswer = (answerForm: any) => {
-        if (loading) return;
-        mutation(answerForm)
-        reset();
-    }
+export default function Textarea({ onAnswer, handleSubmit, register }: ITextarea) {
+
     return (
         <form className="relative pb-10 border-b" onSubmit={handleSubmit(onAnswer)} method='POST'>
             <textarea {...register("answer", { required: true })} rows={3} placeholder="Tweet your reply" className=" w-full mt-5 outline-none resize-none" />

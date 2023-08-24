@@ -1,26 +1,10 @@
-import { useEffect } from "react";
 import dateInvert from "../lib/dateInvert";
 import emailToId from "../lib/emailToId";
 import { CommentDataType } from "../type/type";
-import useMutation from "../lib/useMutation";
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 
-export default function Answer({ commentData }: CommentDataType) {
-    const [mutation, { data: deleteData }] = useMutation("/api/post/answer-delete")
-    useEffect(() => {
-        if (deleteData?.status === 200) {
-            toast.success(deleteData?.message)
-        }
-        if (deleteData?.status === 400) {
-            toast.error(deleteData?.message)
-        }
-    }, [deleteData])
-    const onTweetDelete = async () => {
-        mutation(commentData, "DELETE")
-
-    }
-
+export default function Answer({ commentData, onDelteAnswer }: CommentDataType) {
 
     return (
         <div>
@@ -34,7 +18,7 @@ export default function Answer({ commentData }: CommentDataType) {
                         <span className="text-xs">{dateInvert(commentData.createdAt)}</span>
                     </div>
                     <p>{commentData.answer}</p>
-                    <button onClick={onTweetDelete} className=" absolute text-xs h-5 right-0 bottom-3 hover:text-blue-600">삭제</button>
+                    <button onClick={() => onDelteAnswer(commentData)} className=" absolute text-xs h-5 right-0 bottom-3 hover:text-blue-600">삭제</button>
                 </div>
             </div>
             <div><Toaster /></div>

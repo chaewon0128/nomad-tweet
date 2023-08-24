@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
+import { FieldErrors, FieldValues, Path, UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
 
 
 export interface InputType {
@@ -78,6 +78,7 @@ export interface CountingType {
 
 export interface CommentDataType {
     commentData: AnswerType,
+    onDelteAnswer: (deleteaAnswer: AnswerType) => Promise<void>
 }
 export interface AnswerType {
     answer: string,
@@ -149,4 +150,19 @@ export interface IResponseType {
     statuse?: number,
     message?: string,
     [key: string]: any,
+}
+
+export interface ITweetInput {
+    onTweet: ({ Tweet }: TweetForm) => Promise<void>
+    handleSubmit: UseFormHandleSubmit<TweetForm, undefined>
+    register: UseFormRegister<TweetForm>
+    tweetImage: string
+    image: FileList | undefined
+    setTweetImage: Dispatch<SetStateAction<string>>
+}
+
+export interface ITextarea {
+    onAnswer: (answerForm: any) => void
+    handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
+    register: UseFormRegister<FieldValues>
 }
