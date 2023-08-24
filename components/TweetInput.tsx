@@ -1,38 +1,11 @@
-import { useForm } from "react-hook-form";
-import useMutation from "../lib/useMutation";
-import { TweetForm } from "../type/type";
+import { ITweetInput } from "../type/type";
 import { PlusIcon, SendIcon } from "../icons/icons";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import cls from "../lib/cls";
 
 
-export default function TweetInput() {
-    const { register, handleSubmit, reset, watch } = useForm<TweetForm>()
-    const [mutation, { loading }] = useMutation("/api/post")
-    const image = watch("tweetImg");
-    const [tweetImage, setTweetImage] = useState("")
-    const onTweet = async ({ Tweet }: TweetForm) => {
-        if (loading) return;
 
-        if (Tweet && Tweet.length > 0) {
-            if (image && image.length > 0) {
-                const { uploadURL } = await (await fetch("/api/files")).json()
-
-                const form = new FormData()
-                form.append("file", image[0], Tweet)
-                const { result: { id } } = await (await fetch(uploadURL, {
-                    method: "POST",
-                    body: form
-                })).json()
-
-                mutation({ Tweet, tweetImageId: id })
-            } else {
-                mutation({ Tweet })
-            }
-            reset();
-            setTweetImage("");
-        }
-    }
+export default function TweetInput({ onTweet, handleSubmit, register, tweetImage, image, setTweetImage }: ITweetInput) {
 
     useEffect(() => {
         if (image && image.length > 0) {
@@ -58,7 +31,6 @@ export default function TweetInput() {
                         <img src={tweetImage} className="w-full" alt="preview" />
                     </div>
                 </>) : null}
-
         </form>
     )
 }
