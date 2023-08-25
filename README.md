@@ -1,42 +1,38 @@
-# Hello World example
+# Tweety
 
-## How to use
+<div>
+<img src="https://img.shields.io/badge/Next.JS-000000?style=flat&logo=Next.js&logoColor=white" />
+<img src="https://img.shields.io/badge/tailwindCSS-06B6D4?style=flat&logo=tailwindCSS&logoColor=white" />
+<img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/>
+<img src="https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma&logoColor=white"/>
+<img src="https://img.shields.io/badge/SWR-eee?style=flat-square&logo=swr&logoColor=white"/>
+</div>
 
-### Using `create-next-app`
+## 배포링크 : [Tweety](https://tweety-gz44cvyx8-chaewon0128.vercel.app)
 
-Execute [`create-next-app`](https://github.com/segmentio/create-next-app) with [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) or [npx](https://github.com/zkat/npx#readme) to bootstrap the example:
+### 프로젝트 설명: Serverless SNS 서비스 Tweety 개발 프로젝트
+- next.js를 사용하여 SNS 서비스 구현
+- prisma, planetScale을 활용한 데이터 베이스 구축
+  
+### 기간 : 2023.7.17 ~ 7.25
 
-```bash
-npx create-next-app --example hello-world hello-world-app
-# or
-yarn create next-app --example hello-world hello-world-app
-```
+![스크린샷 2023-08-25 오후 1 38 45](https://github.com/chaewon0128/tweety/assets/119389600/d05763a9-68ae-41ae-a1f3-fcd2a671c549)
 
-### Download manually
 
-Download the example:
+### 주요기능 
+- 회원가입
+- 로그인 / 로그아웃
+- 프로필 조회 / 수정
+- 트윗 추가 / 삭제
+- 댓글 추가 / 댓글 삭제
+- 트윗 좋아요
 
-```bash
-curl https://codeload.github.com/zeit/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/hello-world
-cd hello-world
-```
+### 프로젝트 실행 방법
+  ```
+# Install the dependancies
+npm install or yarn
 
-Install it and run:
+# Start the project
+npm run dev or yarn dev
+  ```
 
-```bash
-npm install
-npm run dev
-# or
-yarn
-yarn dev
-```
-
-Deploy it to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download))
-
-```bash
-now
-```
-
-## The idea behind the example
-
-This example shows the most basic idea behind Next. We have 2 pages: `pages/index.js` and `pages/about.js`. The former responds to `/` requests and the latter to `/about`. Using `next/link` you can add hyperlinks between them with universal routing capabilities. The `day` directory shows that you can have subdirectories.
