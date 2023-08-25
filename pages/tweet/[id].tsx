@@ -21,9 +21,16 @@ export default function Tweet() {
     const [onDelete, { data: deleteData }] = useMutation("/api/post/delete")
     const [uploading, { loading, data: answerData }] = useMutation(`/api/post/${router.query.id}/answer`)
     const [deleteAnswer, { data: deleteAnswerData }] = useMutation("/api/post/answer-delete")
+    const [favoriteMutate] = useMutation(`/api/post/${router.query.id}/fav`)
     const { data: answers, mutate: updateAnswer } = useSWR(router?.query.id ? `/api/post/${router.query.id}/answer` : null)
-    const { data, isValidating, mutate: countingMutate } = useSWR<DataType>(router?.query.id ? `/api/post/${router.query.id}` : null)
+    const { data, isValidating, mutate: countingMutate } = useSWR(router?.query.id ? `/api/post/${router.query.id}` : null)
     const { register, handleSubmit, reset } = useForm()
+
+
+    const onLikedTweet = () => {
+        countingMutate({ ...data, isLiked: !data?.isLiked }, { revalidate: false })
+        favoriteMutate({})
+    }
 
     const onAnswer = (answerForm: any) => {
         if (loading) return;
@@ -55,6 +62,7 @@ export default function Tweet() {
         if (deleteAnswerData?.status === 200) {
             toast.success(deleteAnswerData?.message)
             updateAnswer()
+            countingMutate();
         }
         if (deleteAnswerData?.status === 400) {
             toast.error(deleteAnswerData?.message)
@@ -67,7 +75,7 @@ export default function Tweet() {
 
     }
     return (
-        <div className="w-full bg-gradient-to-br min-h-screen flex justify-center items-center">
+        <div className="w-full bg-gradient-to-br min-h-screen flex justify-center items-center" >
             {isValidating ? <div className="spinner"></div> :
                 <div className="bg-white w-[80%] shadow-2xl mt-14 rounded-3xl py-14 px-8 relative">
                     <Profile name={data?.post?.user.name} email={data?.post?.user.email} avatarUrl={data?.post?.user.avatarUrl} />
@@ -77,7 +85,7 @@ export default function Tweet() {
                     </p>
                     <div className="text-end mt-4 text-xs">{dateInvert(data?.post?.createdAt)}</div>
                     <div className="mt-5 py-3 border-t border-b flex justify-around items-center">
-                        <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><HeartBtn liked={data?.isLiked} />{`${data?.post?._count?.favorite} likes`}</div>
+                        <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><HeartBtn liked={data?.isLiked} onLikedTweet={onLikedTweet} />{`${data?.post?._count?.favorite} likes`}</div>
                         <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><IconBtn type="comment" />{`${data?.post?._count?.answer} comment`}</div>
                         <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><IconBtn type="bookmark" />Mark</div>
                         <div className="flex flex-col items-center justify-center cursor-pointer text-sm"><DeleteBtn onClick={onTweetDelete} />Delete</div>

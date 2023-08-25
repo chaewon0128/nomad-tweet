@@ -113,7 +113,10 @@ export interface TweetForm {
     tweetImg?: FileList,
 }
 
-export type likedType = { liked: boolean | undefined }
+export type likedType = {
+    liked: boolean | undefined,
+    onLikedTweet: () => void
+}
 
 export interface IconType {
     type: "comment" | "xmark" | "bookmark"
