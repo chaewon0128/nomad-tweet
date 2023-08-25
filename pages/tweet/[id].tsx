@@ -7,7 +7,7 @@ import useSWR from "swr";
 import { useRouter } from "next/router";
 import Answer from "../../components/Answer";
 import { useEffect } from "react";
-import { AnswerType, DataType } from "../../type/type";
+import { AnswerType } from "../../type/type";
 import dateInvert from "../../lib/dateInvert";
 import DeleteBtn from "../../components/button/DeleteBtn";
 import useMutation from "../../lib/useMutation";
