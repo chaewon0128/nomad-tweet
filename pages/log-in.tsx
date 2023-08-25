@@ -29,7 +29,7 @@ export default function LogIn() {
         if (data?.status === 200) {
             toast.success('Welcome to Tweety!')
             setTimeout(() => {
-                router.push("/")
+                router.replace("/")
             }, 1000)
         }
         if (data?.status === 404) {
@@ -43,7 +43,8 @@ export default function LogIn() {
     }, [data])
 
     return (
-        <div className=' flex flex-col space-y-5 items-center justify-center pt-10 min-h-screen bg-gradient-to-b from-[#fffc00] to-[#ffffff]'>
+
+        <div className=' flex flex-col space-y-5 items-center justify-center pt-10 h-[900px] bg-gradient-to-b from-[#fffc00] to-[#ffffff]'>
             <h1 className="text-[#4286f4] font-title text-8xl font-semibold animatecss animate-bounce animatecss-repeat-1"><Link href={"/"}>tweety</Link></h1>
             <Image src={tweety} alt="tweety" width={200} height={200} />
             <form onSubmit={handleSubmit(onLogIn)} className=" w-[90%] flex flex-col space-y-2" method="POST">
